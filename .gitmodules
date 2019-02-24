@@ -1,0 +1,4 @@
+[submodule "vendor/mr"]
+	path = vendor/mr
+	url = git://github.com/apik/mr.git
+	ignore = dirty
