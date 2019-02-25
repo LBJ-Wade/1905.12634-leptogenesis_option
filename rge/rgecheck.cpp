@@ -6,13 +6,14 @@ int main(int argc, char *argv[])
 {
   loglevel = logINFO;
 
+  // Factor 1.18 for conversion: mb_MSbar(mb) to Mb; PDG2018 Eq. (66.21)
   /*
-  OSinput table2(4.2, 80.387, 91.1876, 125.15, 173.34);
+  OSinput table2(4.2*1.18, 80.387, 91.1876, 125.15, 173.34);
   double
       alphas_table2 = 0.1184,
       gf_table2 = 1.166378139e-5;
   */
-  OSinput table2(4.18, 80.387, 91.1875, 125.09, 173.2);
+  OSinput table2(4.18 * 1.18, 80.387, 91.1875, 125.09, 173.2);
   double
       alphas_table2 = 0.1185,
       gf_table2 = 1.1663787e-5;
