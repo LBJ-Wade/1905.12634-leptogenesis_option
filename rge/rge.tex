@@ -1,0 +1,190 @@
+\documentclass[a4paper,11pt]{scrartcl}
+\pdfoutput=1
+
+% ----------------------------------------------------------- Packages
+\usepackage{amsmath,amssymb,url,cite,slashed,cancel,booktabs,hyperref,graphicx}
+%%%UNUSED%%% \usepackage{feynmp,enumerate,multirow,wrapfig}
+\renewcommand\citepunct{,\penalty1000\hskip.13emplus.1emminus.1em\relax} % no line-break in \cite
+\renewcommand\thefootnote{*\arabic{footnote}}
+\numberwithin{equation}{section}
+% COMMENTS
+\newcommand{\comment}[1]{{\textbf{\small \color{red} [#1]}}}
+\newcommand{\cmark}{\ding{51}} % check mark
+\newcommand{\xmark}{\ding{55}} % X mark
+
+% MATH NOTATION
+\newcommand\w[1]{_{\mathrm{#1}}}
+\newcommand\vc[1]{{\boldsymbol{#1}}}
+\newcommand\dd{\mathop{}\!\mathrm{d}}
+\newcommand\DD{\mathop{}\!\mathrm{D}}
+\newcommand\ee{\mathop{}\!\mathrm{e}}
+\newcommand\abs[1]{\lvert#1\rvert}
+\newcommand\norm[1]{\lVert#1\rVert}
+\newcommand\Abs[1]{\left\lvert#1\right\rvert}
+\newcommand\Norm[1]{\left\lVert#1\right\rVert}
+\newcommand\ii{\mathrm{i}}
+\newcommand\co[1]{\mathrm{c}_{#1}}
+\newcommand\si[1]{\mathrm{s}_{#1}}
+\newcommand\pmat[1]{\begin{pmatrix}#1\end{pmatrix}}
+\DeclareMathOperator{\Order}{\mathcal{O}}
+\DeclareMathOperator{\ddelta}{\delta}
+\newcommand{\dn}[3]{\frac{\dd^#1 #2}{\dd #3^#1}}
+\newcommand{\pdn}[3]{\frac{\partial^#1 #2}{\partial #3^#1}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand\fracp[3]{\left(\frac{#1}{#2}\right)^{#3}}
+\newcommand\unit[1]{\,\mathrm{#1}}
+\newcommand\eV{\unit{eV}}
+\newcommand\keV{\unit{keV}}
+\newcommand\MeV{\unit{MeV}}
+\newcommand\GeV{\unit{GeV}}
+\newcommand\TeV{\unit{TeV}}
+\newcommand\fb{\unit{fb}}
+\newcommand\pb{\unit{pb}}
+\newcommand\iab{\unit{ab^{-1}}}
+\newcommand\ifb{\unit{fb^{-1}}}
+\newcommand\ipb{\unit{pb^{-1}}}
+\newcommand\fm{\unit{fm}}
+\newcommand\vev[1]{\langle#1\rangle}
+\makeatletter
+\def\EE{\@ifnextchar-{\@@EE}{\@EE}}
+\def\@EE#1{\ifnum#1=1 \times\!10 \else \times\!10^{#1}\fi}
+\def\@@EE#1#2{\times\!10^{-#2}}
+\makeatother
+
+%special to this tex
+\usepackage{upquote,listings}
+\lstset{columns=[l]fullflexible,basicstyle=\small\ttfamily,xleftmargin=2em,frame=L,keepspaces=true}
+\usepackage[scaled=0.95]{inconsolata}
+\newcommand{\TODO}[1]{{\color{red}{$\clubsuit$\texttt{TODO:}#1$\clubsuit$}}}
+\newcommand{\rev}[1]{{\color{magenta}\texttt{#1}}}
+
+
+% ---------------------------------------------------- For Sho's Notes
+\usepackage{scrlayer-scrpage,color,soul}
+\usepackage[hhmmss]{datetime}
+\newdateformat{mydate}{\THEDAY\;\shortmonthname.\;\THEYEAR}
+\addtokomafont{pagehead}{\small\normalfont}
+\ohead{\texttt{[\jobname~@~\mydate\today~\currenttime]}}
+\bibliographystyle{utphys27mod}
+
+\title{RGE Validation}
+\author{Sho Iwamoto}
+\begin{document}
+%\maketitle
+\begin{center}{\makeatletter
+{\huge\usekomafont{title}\@title}\par\vspace{2em}
+{\Large \@author}\par\vspace{2em}
+}
+\end{center}
+
+%---------------------------------------------------------------------
+\section[SM parameters at Q=mt]{SM parameters at $\boldsymbol{Q=m_t}$}
+\subsection{Fixing a typo}
+The original reference \cite[v4]{Buttazzo:2013uya} has a typo in threshold correction $g_Y^{(1)}$ (Eq.(95)); the second last-term should be read as $36M_W^4/(M_Z^2-M_W^2)$.
+This typo is fixed in \rev{6b18ea0}$\to$\rev{9e2350f}.
+
+With the fixed version we can reproduce Table~3 from Table~2 (both in \cite[v4]{Buttazzo:2013uya}).
+For example,
+\begin{lstlisting}[language=Mathematica]
+Install["LoopTools"];
+Needs["SMRGE`", "1307_3536.wl"];
+table2 = <|
+    "MW" -> 80.384,     "MZ" -> 91.1876,   "MH" -> 125.15,
+    "MT" -> 173.34,     "MB" -> 4.2,       "MTau" -> 1.777,
+    "as(MZ)" -> 0.1184, "Gmu" -> 1/(v^2 Sqrt[2]) /. {v -> 246.21971} |>
+table3[order_] := {
+    #[lam], Sqrt[#[ytsq]], Sqrt[#[g2sq]], Sqrt[#[g1sq]*3/5], Sqrt[#[msq]]
+} &@ getCouplingsAtMt[table2, order]
+\end{lstlisting}
+will give
+\begin{table}[h]\centering\small
+ \begin{tabular}{c|ccccc}
+ \rev{6b18ea0}; \texttt{table3[0]}
+ & 0.129177 & 0.995614 & 0.652945 & 0.349715 & 125.15\\
+ \rev{6b18ea0}; \texttt{table3[1]}
+ & 0.127745 & 0.951129 & 0.647545 & 0.358571 & 132.37\\
+ \rev{6b18ea0}; \texttt{table3[2]}
+ & 0.126049 & 0.940179 & 0.647799 & 0.357464 & 131.554\\\hline
+ \rev{9e2350f}; \texttt{table3[0]}
+& 0.129177 & 0.995614 & 0.652945 & 0.349715 & 125.15\\
+ \rev{9e2350f}; \texttt{table3[1]}
+& 0.127745 & 0.951129 & 0.647545 & 0.359394 & 132.37\\
+ \rev{9e2350f}; \texttt{table3[2]}
+& 0.126049 & 0.940179 & 0.647799 & 0.358287 & 131.554\\
+ \end{tabular}
+\end{table}
+The unfixed version gives different $g_Y$, while after the fix Table 3 is reproduced.
+
+\subsection{Strange results in neutrino-option paper}
+Neutrino-option paper~\cite{Brivio:2018rzm} uses slightly different values in their Table~2:
+\begin{lstlisting}[language=Mathematica]
+table2aNeutOpt = <|
+    "MW" -> 80.387,      "MZ" -> 91.1875,   "MH" -> 125.09,
+    "MT" -> 173.2,       "MB" -> 4.18,      "MTau" -> 1.776,
+    "as(MZ)" -> 0.1185,  "Gmu" -> 1.1663787/10^5 |>;
+table2b[order_] := {
+    #[lam], Sqrt[#[msq]], Sqrt[#[g1sq]], Sqrt[#[g2sq]], Sqrt[#[g3sq]],
+    Sqrt[#[ytsq]],  Sqrt[#[ybsq]],  Sqrt[#[yasq]]
+} &@ getCouplingsAtMt[table2aNeutOpt, order]
+\end{lstlisting}
+but their obtained values (Table~2b) are quite strange.
+First of all, they show $\hat g_3=1.22029$, but this is equal to $\sqrt{4\pi\alpha_s(M_Z)}$ and inconsistent to what they wrote,
+\begin{quote}
+The value of $g_3(\mu = m_t)$ is extracted from Eqn. 60 of Ref. [42] which includes higher order QCD corrections.
+\end{quote}
+because this procedure should give $\hat g_3=1.16711$.
+SI is also sure that they did not notice the typo.
+
+Their value of Table~2a should give the following values for Table~2b:
+\begin{table}[h]\centering\small
+ \begin{tabular}{c|cccccccc}
+ \rev{9e2350f}; \texttt{table2b[0]}
+& 0.1291 & 125.09 & 0.451 & 0.653 & 1.16711 & 0.995 & 0.024 & 0.0102\\
+ \rev{9e2350f}; \texttt{table2b[1]}
+& 0.1276 & 132.288 & 0.464 & 0.648 & 1.16711 & 0.950 & 0.024 & 0.0102\\
+ \rev{9e2350f}; \texttt{table2b[2]}
+& 0.1259 & 131.474 & 0.462 & 0.648 & 1.16711 & 0.939 & 0.024 & 0.0102\\
+ \end{tabular}
+\end{table}
+
+One can reproduce most of their results, shown in their Table~2b, using \rev{6b18ea0} with \texttt{WeakScaleThreshold["g3", {0,1,2}] := Sqrt[4*Pi*asMZ];}
+
+\begin{table}[h]\centering\small
+ \begin{tabular}{c|ccccccc}
+ \rev{6b18ea0}-mod; \texttt{table2b[0]}
+&0.1291 & 125.09  & 0.451 & 0.6530 & 1.22029 & 0.995 & ...\\
+ \rev{6b18ea0}-mod; \texttt{table2b[1]}
+&0.1276 & 132.288 & 0.463 & 0.6476 & 1.22029 & 0.946 & ...\\
+ \rev{6b18ea0}-mod; \texttt{table2b[2]}
+&0.1258 & 131.431 & 0.461 & 0.6478 & 1.22029 & 0.933 & ...\\
+ \end{tabular}
+\end{table}
+
+Here, however, $\hat g_2$ is a bit different (0.5\%) from their values; SI guesses they have another typo in their code.
+
+\subsection{Validation with \texttt{mr~1.3.2}}
+SI compares the results against \texttt{mr~1.3.2}~\cite{Kniehl:2016enc}. The code \texttt{rgecheck.cpp} given in \rev{b543c71} gives, using the values in the neutrino-option paper,
+
+\begin{table}[h]\centering\small
+ \begin{tabular}{c|ccccccc}
+ \texttt{mr 1.3.2}; \texttt{order=0}
+ & 0.12905 & 125.0900 & 0.4514 & 0.6530 & 1.1651091 & 0.9948 & 0.0240\\
+ & 0.12757 & 132.4737 & 0.4642 & 0.6473 & 1.1651091 & 0.9505 & 0.0166\\
+ & 0.12588 & 131.2905 & 0.4626 & 0.6481 & 1.1651091 & 0.9396 & 0.0146\\
+ \end{tabular}
+\end{table}
+
+This result supports SI's value than those in the neutrino-option paper.
+
+
+
+
+
+\bibliography{rge}
+
+
+
+
+\end{document}
+
