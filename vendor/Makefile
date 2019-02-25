@@ -14,6 +14,7 @@ init: requirements.txt ../.gitmodules
 	git submodule update
 	# build
 	./mr_build.sh
+	./LoopTools_build.sh
 
 freeze:
 	mv -f requirements.txt requirements.bak

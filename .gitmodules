@@ -2,3 +2,6 @@
 	path = vendor/mr
 	url = git://github.com/apik/mr.git
 	ignore = dirty
+[submodule "vendor/LoopTools"]
+	path = vendor/LoopTools
+	url = git://github.com/HEPcodes/LoopTools.git
