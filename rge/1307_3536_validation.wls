@@ -1,4 +1,4 @@
-#!/usr/bin/env wolframscript
+#!wolframscript -script
 (* ::Package:: *)
 
 (* ::Section:: *)
