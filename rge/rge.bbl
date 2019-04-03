@@ -1,0 +1,26 @@
+\providecommand{\href}[2]{#2}\begingroup\raggedright\begin{thebibliography}{1}
+
+\bibitem{Buttazzo:2013uya}
+D.~Buttazzo, {\em et al.}, {\em {Investigating the near-criticality of the
+  Higgs boson}}, \href{https://dx.doi.org/10.1007/JHEP12(2013)089}{JHEP
+  {\bfseries 12} (2013) 089}
+{\ttfamily [\href{https://arxiv.org/abs/1307.3536}{arXiv:1307.3536}]}.
+%%CITATION = ARXIV:1307.3536;%%.
+
+\bibitem{Brivio:2018rzm}
+I.~Brivio and M.~Trott, {\em {Examining the neutrino option}},
+  \href{https://dx.doi.org/10.1007/JHEP02(2019)107}{JHEP {\bfseries 02} (2019)
+  107}
+{\ttfamily [\href{https://arxiv.org/abs/1809.03450}{arXiv:1809.03450}]}.
+%%CITATION = ARXIV:1809.03450;%%.
+
+\bibitem{Kniehl:2016enc}
+B.~A.~Kniehl, A.~F.~Pikelner, and O.~L.~Veretin, {\em {mr: a C++ library for
+  the matching and running of the Standard Model parameters}},
+  \href{https://dx.doi.org/10.1016/j.cpc.2016.04.017}{Comput.\  Phys.\
+  Commun.\  {\bfseries 206} (2016) 84--96} {\ttfamily
+  [\href{https://arxiv.org/abs/1601.08143}{arXiv:1601.08143}]}.
+\href{https://github.com/apik/mr}{GitHub:\texttt{apik/mr}}.
+%%CITATION = ARXIV:1601.08143;%%.
+
+\end{thebibliography}\endgroup
