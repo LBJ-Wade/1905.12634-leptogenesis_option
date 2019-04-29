@@ -5,3 +5,6 @@
 [submodule "vendor/LoopTools"]
 	path = vendor/LoopTools
 	url = git://github.com/HEPcodes/LoopTools.git
+[submodule "private"]
+	path = private
+	url = https://github.com/misho104/leptogenesis_option_private
