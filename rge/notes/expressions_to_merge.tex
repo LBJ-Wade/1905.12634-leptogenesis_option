@@ -1,0 +1,283 @@
+\documentclass[english,11pt,a4paper]{article}
+\pdfoutput=1
+\bibliographystyle{utphys27mod}
+
+\usepackage{amsmath,amssymb,url,slashed,xstring,cancel,booktabs,hyperref,graphicx,xspace,subcaption}
+\numberwithin{equation}{section}  % section number in equation label
+
+
+
+% MATH NOTATION
+\newcommand\w[1]{_{\mathrm{#1}}}
+\newcommand\vc[1]{{\boldsymbol{#1}}}
+\newcommand\dd{\mathop{}\!\mathrm{d}}
+%\newcommand\DD{\mathop{}\!\mathrm{D}} % not using roman D, e, and i
+%\newcommand\ee{\mathop{}\!\mathrm{e}}
+%\newcommand\ii{\mathrm{i}}
+\newcommand\pmat[1]{\begin{pmatrix}#1\end{pmatrix}} % matrix with parentheses borders
+
+\DeclareMathOperator{\Order}{\mathcal{O}}
+\DeclareMathOperator{\Tr}{\mathrm{Tr}}
+
+\def\oneone{1}
+\newcommand{\pd}{\partal}
+\newcommand{\dn}[3]{\frac{\dd^#1 #2}{\dd #3^#1}}    % derivatives
+\newcommand{\pdn}[3]{\frac{\partial^#1 #2}{\partial #3^#1}}
+\newcommand\paren[3]{\def\temp{#3}\Bigl(\frac{#1}{#2}\Bigr)\ifx\oneone\temp\relax\relax\else^{#3}\fi}
+\newcommand{\bra}[1]{\langle #1 |}  % consider using braket.sty if you write compilcated exp
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand\vev[1]{\langle#1\rangle}
+\newcommand{\mean}[1]{\left\langle #1 \right\rangle}
+
+\newcommand\hc{\text{h.c.}}
+
+
+% units
+\newcommand\unit[1]{~\mathrm{#1}\xspace}
+\newcommand\eV{\unit{eV}}
+\newcommand\keV{\unit{keV}}
+\newcommand\MeV{\unit{MeV}}
+\newcommand\GeV{\unit{GeV}}
+\newcommand\TeV{\unit{TeV}}
+\newcommand\PeV{\unit{PeV}}
+\newcommand\fb{\unit{fb}}
+\newcommand\pb{\unit{pb}}
+\newcommand\iab{\unit{ab^{-1}}}
+\newcommand\ifb{\unit{fb^{-1}}}
+\newcommand\ipb{\unit{pb^{-1}}}
+\newcommand\fm{\unit{fm}}
+
+
+% scientific form of numbers
+\makeatletter
+\def\EE{\@ifnextchar-{\@@EE}{\@EE}}
+\def\@EE#1{\ifnum#1=1 \times\!10 \else \times\!10^{#1}\fi}
+\def\@@EE#1#2{\times\!10^{-#2}}
+\makeatother
+
+
+
+
+
+%%%%%%%%%% REMOVE THIS BLOCK WHEN FINALIZE %%%%%%%%%%
+\usepackage{fancyhdr,xcolor}
+\usepackage[hhmmss]{datetime}
+\newdateformat{mydate}{\THEDAY\;\shortmonthname.\;\THEYEAR}
+\renewcommand{\headrulewidth}{0pt}
+\makeatletter
+\gdef\@fpheader{\color{gray}{\textsc{Draft \jobname\ compiled at \mydate\today~\currenttime}}}
+\lhead{}
+\rhead{\footnotesize\@fpheader}
+\makeatother
+\newcommand{\comment}[1]{{\textbf{\small \color{red} [#1]}}}
+\newcommand{\rem}[1]{{\textbf{\small \color{red} $<$#1$>$}}}
+\newcommand{\TODO}[1]{{\textbf{\small \color{red} [TODO: #1]}}}
+\newcommand{\TOWRITE}[1]{{{\footnotesize \color{blue} (#1)}}}
+\newcommand{\cmark}{\ding{51}} % check mark
+\newcommand{\xmark}{\ding{55}} % X mark
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcommand\YN{Y_\nu}
+\newcommand\NR{{N\w R}}
+\newcommand\NRbar{{\overline N\w R}}
+\newcommand\NRc{{N\w R^{\mathrm c}}}
+
+
+\newcommand{\trans}{^{\mathrm T}}
+\newcommand{\spmat}[1]{\left(\begin{smallmatrix}#1\end{smallmatrix}\right)}
+\DeclareMathOperator{\diag}{\mathrm{diag}}
+
+%----------------------------------------------------------------------------------------
+
+\title{Expressions to merge}
+
+\begin{document}
+\section{set up}
+\subsection{Lagrangian}
+A wise choice would be to follow the notation [1611.03827] by Bhupal et al.
+
+\begin{equation}
+ -\mathcal L \supset (\YN)_{ai} \NRbar_a \tilde\phi^\dagger L_i + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
+\\
+\end{equation}
+
+$\phi = (\phi^+, \phi^0)\trans$
+
+$\tilde\phi = \spmat{0&1\\-1&0}\spmat{\phi^-\\\phi^{0*}} = \spmat{\phi^{0*}\\-\phi^-}$
+
+\begin{align}
+  -\mathcal L &\supset (\YN)_{ai} \NRbar_a (\phi^{0}\nu_i-\phi^+l_i) + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}\\
+   &= \epsilon_{AB}(\YN)_{ai} \NRbar_a L_{iA}\phi_B + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
+\end{align}
+
+This Lagrangian is written without specifying the basis.
+For CI parameterization we first define $M_a$ and $m_i$ by the physical mass of $N_a$ and $\nu_i$, where $M_1\le M_2$ but the basis for $\nu_i$ is ``as usual''.
+
+
+Neutrino mass matrix is better shown in two-component $\NR=\spmat{0\\n^\dagger}$:
+\begin{align}
+  -\mathcal L &
+\supset \vev{\phi_0}(\YN)_{ai} n_a\nu_i + \frac12 M_{ab}n_an_b + \text{h.c.}\\
+&=
+\frac12\pmat{\nu_i & n_a}
+\pmat{
+ 0_{ij} & \vev{\phi_0}(\YN)_{bi} \\
+ \vev{\phi_0}(\YN)_{aj} & M_{ab}
+}
+\pmat{\nu_j \\ n_b} + \text{h.c.}
+\end{align}
+or we will write down, assuming the notation is understood,
+\begin{equation}
+ M_\nu = \pmat{
+   0 & \vev{\phi^0}\YN\trans\\
+   \vev{\phi^0}\YN & M
+}
+\end{equation}
+and perform Autonne--Takagi diagonalization:
+\begin{equation}
+ U_0\trans M_\nu U_0 = \diag(m_1, m_2, m_3, M_1, M_2)
+\end{equation}
+
+
+\subsection{Casas--Ibarra parameterization}
+We split this Autonne--Takagi diagonalization procedure to two steps:
+\begin{align}
+   &U_1\trans  M_\nu U_1 = \spmat{A& 0 \\ 0&B},\\
+   &\spmat{U_2&0\\0&U_3}\trans U_1\trans M_\nu U_1 \spmat{U_2&0\\0&U_3} = \spmat{m\w{diag} & 0 \\ 0 & M\w{diag}},
+\end{align}
+where $m\w{diag}=\diag(m_1, m_2, m_3)$ and $M\w{diag}=\diag(M_1, M_2)$.
+The result of the first step is well-known in series-expanded form:
+\begin{align}
+U_1 &\simeq \pmat{
+  1 - \frac{\vev{\phi_0}^2}{2}\YN^\dagger (MM^*)^{-1}\YN &
+ \vev{\phi_0} \YN^\dagger M^{*-1}
+\\
+-\vev{\phi_0} M^{-1}\YN &
+  1 - \frac{\vev{\phi_0}^2}{2} M^{-1}\YN\YN^\dagger M^{*-1}
+},\\
+ A &\simeq -\vev{\phi_0}^2 \YN\trans M^{-1} \YN,\\
+ B &\simeq M + \frac{\vev{\phi_0}^2}{2} \left( \YN\YN^\dagger M^{*-1} + M^{*-1} \YN^* \YN\trans\right)
+\end{align}
+The second step is expressed by
+\begin{align}
+ U_2\trans A U_2 &= m\w{diag}, &
+ U_3\trans B U_3 &= M\w{diag}.
+\end{align}
+We also have the expression of the mass eigenstates:
+\begin{align}
+ \text{lighter}:&\quad
+  U_2^\dagger\left[
+\nu
+-\vev{\phi_0} \YN^\dagger M^{*-1} n
+-\frac{\vev{\phi_0}^2}{2} \YN^\dagger (MM^*)^{-1}\YN\nu
+\right]\\
+ \text{heavier}:&\quad
+  U_3^\dagger\left[
+n
++\vev{\phi_0} M^{-1}\YN\nu
+-\frac{\vev{\phi_0}^2}{2} M^{-1}\YN\YN^\dagger M^{*-1}n
+\right]\\
+% R'^\dagger(U_{12}^\dagger \nu + U_{22}^\dagger n).
+\end{align}
+
+Combining them,
+\begin{align}
+ m\w{diag} &=  U_2\trans A U_2\\
+&= -\vev{\phi_0}^2U_2\trans \YN\trans M^{-1} \YN U_2 + \Order(\epsilon^4)\\
+&=-\vev{\phi_0}^2U_2\trans \YN\trans B^{-1} \YN U_2 + \Order(\epsilon^4)\\
+&=-\vev{\phi_0}^2U_2\trans \YN\trans U_3 M\w{diag}^{-1}U_3\trans \YN U_2 + \Order(\epsilon^4)
+\end{align}
+with $\Order(M\epsilon^n)\sim\Order(\vev{\phi_0}^n/M_1^{n-1})$.
+Now $R:=-i\vev{\phi_0}M\w{diag}^{-1/2} U_3\trans Y_\nu U_2 m\w{diag}^{-1/2}$ satisfies $R\trans R=1$, which is Casas--Ibarra parameterization in general basis,
+\begin{equation}
+ Y_\nu = i\vev{\phi_0}^{-1}U_3^* \sqrt{M\w{diag}}R\sqrt{m\w{diag}}U_2^\dagger.
+\end{equation}
+
+We have not yet defined the lepton basis.
+We can assume that we have been using, from the beginning, the charged lepton mass basis for $L$.
+Then, we identify the PMNS matrix ($U_{li}$ in Eq.~(14.1) of PDG2018, where $i$ for mass and $l$ for gauge indices) as
+\begin{equation}
+ U\w{PMNS} \simeq U_2.
+\end{equation}
+Similarly, the basis for $\NR$ is such that $U_3 \simeq 1$, which corresponds to
+\begin{equation}
+ M = B + \Order(\epsilon^2) = U_3^* M\w{diag} U_3^\dagger +\Order(\epsilon^2) = M\w{diag} + \Order(\epsilon^2),
+\end{equation}
+i.e., the basis in which $M_{ab}\simeq\diag(M_1, M_2)$ with $0<M_1\le M_2$.
+These basis choice gives the well-known Casas--Ibarra parameterization,\footnote{
+If we took the basis in which $M_{ab}\simeq\diag(-M_1, -M_2)$, then $U_3=\diag(-i, -i)$ and we can remove $i$, but it is less plausible and we put $i$ in the parameterization.
+}
+\begin{equation}
+ Y_\nu = i\vev{\phi_0}^{-1}\sqrt{M\w{diag}}R\sqrt{m\w{diag}}U\w{PMNS}^\dagger,
+\end{equation}
+where
+\begin{equation}\begin{split}
+ U\w{PMNS} &= \pmat{
+                 c_{12}      c_{13}             &                 s_{12}      c_{13}            &       s_{13} e^{-i\delta} \\
+ -s_{12}c_{23} - c_{12}s_{23}s_{13}e^{i\delta}  & +c_{12}c_{23} - s_{12}s_{23}s_{13}e^{i\delta} & s_{23}c_{13}\\
+ +s_{12}s_{23} - c_{12}c_{23}s_{13}e^{i\delta}  & -c_{12}s_{23} - s_{12}c_{23}s_{13}e^{i\delta} & c_{23}c_{13}
+}
+\\&\qquad\qquad
+\times\diag(1, e^{i\alpha_{21}/2}, e^{i\alpha_{31}/2}).
+\end{split}\end{equation}
+
+\subsection{Higgs potential}
+Following [1611.03827],
+
+\begin{equation}
+ V = -\mu^2(\phi^\dagger \phi) + \lambda(\phi^\dagger \phi)^2,
+\end{equation}
+which gives $m_h^2 = 2\mu^2 = 2\lambda v^2$ with $\vev{\phi}=v/\sqrt{2}$.
+
+We calculate the threshold correction to $\mu^2$ and $\lambda$ by matching the effective potential.
+The difference of the EFT, in which the heavy neutrinos are integrated out, and the full theory is given by
+\TODO{Here $M_a$ is physical mass}
+\begin{align}
+ \Delta V(\phi;Q)
+&= V\w{full}(\phi;Q) - V\w{EFT}(\phi;Q)\\
+&= \sum_{a=1,2}\frac{-2}{64\pi^2}M_a(\phi)^4\left(\frac{M_a(\phi)^2}{Q^2}-\frac32\right),
+\end{align}
+where $Q$ is the matching scale and $M_a$ is the physical masses of the heavier neutrinos.
+Expanding $\Delta V$ in terms of $\phi$,
+\begin{align}
+ \Delta V
+&= \text{(const.)} - \Delta \mu^2 |\phi|^2 + \Delta \lambda |\phi|^4 + \Order\left(|\phi|^6\right),
+\end{align}
+where
+\TODO{Now $M_a$ is the diagonal majorana masses...}
+\begin{align}
+ &\Delta\mu^2= -\sum_{a=1,2}\frac{H_a}{8\pi^2}M_a^2\left(1-\log\frac{M_a^2}{Q^2}\right),
+\\
+ &\Delta\lambda
+=
+-\frac{1}{16\pi^2}
+\Bigl[f_1 \Tr(Y Y^\dagger Y^*Y\trans)
++f_2\Tr(YY^\dagger YY^\dagger)
++f_3H_1^2+f_4H_2^2
+\Bigr];
+\end{align}
+the coefficients are $H_1 = (YY^\dagger)_{11}$, $H_2 = (YY^\dagger)_{22}$, and
+\begin{align*}
+ f_1&=\frac{2M_1 M_2}{M_2^2-M_1^2}\log\frac{M_2}{M_1},&
+ f_2&=\frac{M_2^2\log(M_2^2/Q^2) - M_1^2\log(M_1^2/Q^2)}{M_2^2 - M_1^2} - 1,\\
+ f_3 &= 2-\frac{2M_2\log(M_2/M_1)}{M_2-M_1},&
+ f_4 &= 2-\frac{2M_1\log(M_2/M_1)}{M_2-M_1};
+\end{align*}
+for $M_2\simeq M_1$, they approach to $f_1=1$, $f_2=\log({M_1^2}/{Q^2})$, and $f_3=f_4=0$, which gives
+\begin{align}
+ \Delta \mu^2
+&\simeq -\frac{M_1^2}{8\pi^2}\Tr(YY^\dagger)\left(1-\log\frac{M_1^2}{Q^2}\right),\\
+ \Delta \lambda
+&\simeq
+-\frac{1}{16\pi^2}\Bigl[
+ \Tr(Y Y^\dagger Y^*Y\trans) + \Tr(YY^\dagger YY^\dagger)\log\frac{M_1^2}{Q^2}
+\Bigr].
+\end{align}
+
+
+
+
+\end{document}
+
