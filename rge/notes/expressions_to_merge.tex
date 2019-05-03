@@ -1,31 +1,38 @@
-\documentclass[english,11pt,a4paper]{article}
+\documentclass[a4paper,11pt]{scrartcl}
 \pdfoutput=1
 \bibliographystyle{utphys27mod}
 
-\usepackage{amsmath,amssymb,url,slashed,xstring,cancel,booktabs,hyperref,graphicx,xspace,subcaption}
-\numberwithin{equation}{section}  % section number in equation label
-
-
+% ----------------------------------------------------------- Packages
+\usepackage{amsmath,amssymb,url,cite,slashed,cancel,booktabs,hyperref,graphicx,xspace,subcaption}
+%%%UNUSED%%% \usepackage{feynmp,enumerate,multirow,wrapfig}
+\renewcommand\citepunct{,\penalty1000\hskip.13emplus.1emminus.1em\relax} % no line-break in \cite
+\renewcommand\thefootnote{*\arabic{footnote}}
+\numberwithin{equation}{section}
 
 % MATH NOTATION
 \newcommand\w[1]{_{\mathrm{#1}}}
 \newcommand\vc[1]{{\boldsymbol{#1}}}
 \newcommand\dd{\mathop{}\!\mathrm{d}}
-%\newcommand\DD{\mathop{}\!\mathrm{D}} % not using roman D, e, and i
-%\newcommand\ee{\mathop{}\!\mathrm{e}}
-%\newcommand\ii{\mathrm{i}}
-\newcommand\pmat[1]{\begin{pmatrix}#1\end{pmatrix}} % matrix with parentheses borders
+\newcommand\DD{\mathop{}\!\mathrm{D}}
+\newcommand\ee{\mathop{}\!\mathrm{e}}
+\newcommand\abs[1]{\lvert#1\rvert}
+\newcommand\norm[1]{\lVert#1\rVert}
+\newcommand\Abs[1]{\left\lvert#1\right\rvert}
+\newcommand\Norm[1]{\left\lVert#1\right\rVert}
 
+\newcommand\ii{\mathrm{i}}
+\newcommand\co[1]{\mathrm{c}_{#1}}
+\newcommand\si[1]{\mathrm{s}_{#1}}
+
+\newcommand\pmat[1]{\begin{pmatrix}#1\end{pmatrix}}
 \DeclareMathOperator{\Order}{\mathcal{O}}
 \DeclareMathOperator{\Tr}{\mathrm{Tr}}
 
-\def\oneone{1}
-\newcommand{\pd}{\partal}
+\newcommand\oneone{1}
 \newcommand{\dn}[3]{\frac{\dd^#1 #2}{\dd #3^#1}}    % derivatives
 \newcommand{\pdn}[3]{\frac{\partial^#1 #2}{\partial #3^#1}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand\paren[3]{\def\temp{#3}\Bigl(\frac{#1}{#2}\Bigr)\ifx\oneone\temp\relax\relax\else^{#3}\fi}
-\newcommand{\bra}[1]{\langle #1 |}  % consider using braket.sty if you write compilcated exp
-\newcommand{\ket}[1]{| #1 \rangle}
 \newcommand\vev[1]{\langle#1\rangle}
 \newcommand{\mean}[1]{\left\langle #1 \right\rangle}
 
@@ -33,7 +40,7 @@
 
 
 % units
-\newcommand\unit[1]{~\mathrm{#1}\xspace}
+\newcommand\unit[1]{\,\mathrm{#1}\xspace}
 \newcommand\eV{\unit{eV}}
 \newcommand\keV{\unit{keV}}
 \newcommand\MeV{\unit{MeV}}
@@ -60,15 +67,20 @@
 
 
 %%%%%%%%%% REMOVE THIS BLOCK WHEN FINALIZE %%%%%%%%%%
-\usepackage{fancyhdr,xcolor}
+%\usepackage{fancyhdr,xcolor}
+%\usepackage[hhmmss]{datetime}
+%\newdateformat{mydate}{\THEDAY\;\shortmonthname.\;\THEYEAR}
+%\renewcommand{\headrulewidth}{0pt}
+%\makeatletter
+%\gdef\@fpheader{\color{gray}{\textsc{Draft \jobname\ compiled at \mydate\today~\currenttime}}}
+%\lhead{}
+%\rhead{\footnotesize\@fpheader}
+%\makeatother
+\usepackage{scrlayer-scrpage,color,soul}
 \usepackage[hhmmss]{datetime}
 \newdateformat{mydate}{\THEDAY\;\shortmonthname.\;\THEYEAR}
-\renewcommand{\headrulewidth}{0pt}
-\makeatletter
-\gdef\@fpheader{\color{gray}{\textsc{Draft \jobname\ compiled at \mydate\today~\currenttime}}}
-\lhead{}
-\rhead{\footnotesize\@fpheader}
-\makeatother
+\addtokomafont{pagehead}{\small\normalfont}
+\ohead{\texttt{[\jobname~@~\mydate\today~\currenttime]}}
 \newcommand{\comment}[1]{{\textbf{\small \color{red} [#1]}}}
 \newcommand{\rem}[1]{{\textbf{\small \color{red} $<$#1$>$}}}
 \newcommand{\TODO}[1]{{\textbf{\small \color{red} [TODO: #1]}}}
@@ -79,7 +91,7 @@
 
 
 
-\newcommand\YN{Y_\nu}
+\newcommand\YN{y}
 \newcommand\NR{{N\w R}}
 \newcommand\NRbar{{\overline N\w R}}
 \newcommand\NRc{{N\w R^{\mathrm c}}}
@@ -96,24 +108,24 @@
 \begin{document}
 \section{set up}
 \subsection{Lagrangian}
-A wise choice would be to follow the notation [1611.03827] by Bhupal et al.
-
+Following the notation [1611.03827] by Bhupal et al.\ and without specifying the basis,
 \begin{equation}
- -\mathcal L \supset (\YN)_{ai} \NRbar_a \tilde\phi^\dagger L_i + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
+ -\mathcal L \supset \YN_{ak} \NRbar_a \tilde\phi^\dagger L_k + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
 \\
 \end{equation}
 
 $\phi = (\phi^+, \phi^0)\trans$
 
-$\tilde\phi = \spmat{0&1\\-1&0}\spmat{\phi^-\\\phi^{0*}} = \spmat{\phi^{0*}\\-\phi^-}$
+$\tilde\phi=\ii\sigma_2\phi^* = \spmat{0&1\\-1&0}\spmat{\phi^-\\\phi^{0*}} = \spmat{\phi^{0*}\\-\phi^-}$
+
+$\tilde\phi^\dagger=(\ii\sigma_2\phi^*)^\dagger = \pmat{\phi_0 & -\phi^+}$
+
 
 \begin{align}
-  -\mathcal L &\supset (\YN)_{ai} \NRbar_a (\phi^{0}\nu_i-\phi^+l_i) + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}\\
-   &= \epsilon_{AB}(\YN)_{ai} \NRbar_a L_{iA}\phi_B + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
+  -\mathcal L &\supset \YN_{ak} \NRbar_a (\phi^{0}\nu_k-\phi^+l_k) + \frac12 \NRbar_a M_{ab} \NRc_b + \text{h.c.}
 \end{align}
 
-This Lagrangian is written without specifying the basis.
-For CI parameterization we first define $M_a$ and $m_i$ by the physical mass of $N_a$ and $\nu_i$, where $M_1\le M_2$ but the basis for $\nu_i$ is ``as usual''.
+
 
 
 Neutrino mass matrix is better shown in two-component $\NR=\spmat{0\\n^\dagger}$:
@@ -181,19 +193,59 @@ n
 \right]\\
 % R'^\dagger(U_{12}^\dagger \nu + U_{22}^\dagger n).
 \end{align}
-
 Combining them,
 \begin{align}
  m\w{diag} &=  U_2\trans A U_2\\
-&= -\vev{\phi_0}^2U_2\trans \YN\trans M^{-1} \YN U_2 + \Order(\epsilon^4)\\
-&=-\vev{\phi_0}^2U_2\trans \YN\trans B^{-1} \YN U_2 + \Order(\epsilon^4)\\
-&=-\vev{\phi_0}^2U_2\trans \YN\trans U_3 M\w{diag}^{-1}U_3\trans \YN U_2 + \Order(\epsilon^4)
+&= -\vev{\phi_0}^2U_2\trans \YN\trans M^{-1} \YN U_2 + \Order(M\epsilon^4)\\
+&=-\vev{\phi_0}^2U_2\trans \YN\trans B^{-1} \YN U_2 + \Order(M\epsilon^4)\\
+&=-\vev{\phi_0}^2U_2\trans \YN\trans U_3 M\w{diag}^{-1}U_3\trans \YN U_2 + \Order(M\epsilon^4)\\
+&=: R'{}\trans R' + \Order(M\epsilon^4)
 \end{align}
-with $\Order(M\epsilon^n)\sim\Order(\vev{\phi_0}^n/M_1^{n-1})$.
-Now $R:=-i\vev{\phi_0}M\w{diag}^{-1/2} U_3\trans Y_\nu U_2 m\w{diag}^{-1/2}$ satisfies $R\trans R=1$, which is Casas--Ibarra parameterization in general basis,
-\begin{equation}
- Y_\nu = i\vev{\phi_0}^{-1}U_3^* \sqrt{M\w{diag}}R\sqrt{m\w{diag}}U_2^\dagger.
-\end{equation}
+with $\Order(M\epsilon^n)\sim\Order(\vev{\phi_0}^n/M_1^{n-1})$ and $R':=-\ii\vev{\phi_0}M\w{diag}^{-1/2}U_3\trans yU_2$. Now, the Yukawa coupling is given by
+$y=\ii\vev{\phi_0}^{-1}U_3^*M\w{diag}^{1/2}R'U_2^\dagger$.
+
+
+
+Here, for two heavy neutrino scenarios, $R'$ can be parameterized as
+\begin{align}
+R'\w{NH} &= \begin{pmatrix}
+0 & +\sqrt{m_2}\cos z  & \zeta\sqrt{m_3}\sin z\\
+0 & -\sqrt{m_2}\sin{z} & \zeta\sqrt{m_3}\cos z
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & +\cos z  & \zeta\sin z\\
+0 & -\sin{z} & \zeta\cos z
+\end{pmatrix}\sqrt{m\w{diag}},
+\\
+R'\w{IH} &= \begin{pmatrix}
++\sqrt{m_1}\cos z  & \zeta\sqrt{m_2}\sin z & 0\\
+-\sqrt{m_1}\sin{z} & \zeta\sqrt{m_2}\cos z & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
++\cos z  & \zeta\sin z & 0\\
+-\sin{z} & \zeta\cos z & 0
+\end{pmatrix}\sqrt{m\w{diag}}
+\end{align}
+for normal hierarchy (NH; $m_1=0<m_2<m_3$) and inverted hierarchy (IH; $m_3=0<m_1<m_2$) cases.
+Therefore, the Yukawa couplings are given by
+\begin{align}
+ \YN = \ii\vev{\phi_0}^{-1}U_3^* \sqrt{M\w{diag}}R\sqrt{m\w{diag}}U_2^\dagger,
+\end{align}
+which is the Casas--Ibarra parameterization in general basis; $R$ is given by
+\begin{align}
+R\w{NH} &= \begin{pmatrix}
+0 & +\cos z  & \zeta\sin z\\
+0 & -\sin{z} & \zeta\cos z
+\end{pmatrix},
+&
+R\w{IH} &=
+\begin{pmatrix}
++\cos z  & \zeta\sin z & 0\\
+-\sin{z} & \zeta\cos z & 0
+\end{pmatrix}.
+\end{align}
 
 We have not yet defined the lepton basis.
 We can assume that we have been using, from the beginning, the charged lepton mass basis for $L$.
@@ -210,7 +262,7 @@ These basis choice gives the well-known Casas--Ibarra parameterization,\footnote
 If we took the basis in which $M_{ab}\simeq\diag(-M_1, -M_2)$, then $U_3=\diag(-i, -i)$ and we can remove $i$, but it is less plausible and we put $i$ in the parameterization.
 }
 \begin{equation}
- Y_\nu = i\vev{\phi_0}^{-1}\sqrt{M\w{diag}}R\sqrt{m\w{diag}}U\w{PMNS}^\dagger,
+ y = \ii\vev{\phi_0}^{-1}\sqrt{M\w{diag}}R\sqrt{m\w{diag}}U\w{PMNS}^\dagger,
 \end{equation}
 where
 \begin{equation}\begin{split}
