@@ -52,6 +52,13 @@ headers = If[Length[#]==Length[table[[1]]], StringRiffle[#, "\t"] <> "\n", Print
 Export["higgs_potential_running.tsv", headers <> ExportString[table, "TSV"], "Text"]  
 
 
+Clear[msq]
+f = msq /. rges;
+msq = Function @@ {Q, f[2Log[Q]]};
+Put[msq, "msq.dat"]
+Clear[msq];
+
+
 (* ::Subsection:: *)
 (*RGE plot*)
 
