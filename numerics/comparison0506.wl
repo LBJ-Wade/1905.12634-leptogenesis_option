@@ -12,6 +12,7 @@ RRep["IH", z_, \[Zeta]_] := {{Cos[z], \[Zeta] Sin[z], 0}, {-Sin[z], \[Zeta] Cos[
 MajoranaPhase[\[Sigma]_] := DiagonalMatrix[{1, Exp[I \[Sigma]], 1}]; 
 
 RemC[exp_] := exp //. Complex[a_Real, 0.`]:>a;
+CHOP[exp_] := exp // Chop[#, 1*^-30]& //N[#,10]&;
 
 
 $Assumptions={\[CapitalDelta]M>0, lz\[Element]Reals};
@@ -25,23 +26,31 @@ may6 = <|
   "Sin2\[Theta]13"->0.02240,
   "Sin2\[Theta]23"->0.582,
   "\[CapitalDelta]msq21"->7.39*^-23,
-  "\[CapitalDelta]msq3l"->2.525*^-21,
+  "\[CapitalDelta]msq3l"->2.525*^-21 (* + 7.39*^-23 *),
   "M1"->6.87433*^6,
   "M2"->6.87433*^6 + 277.251
 |>;
-M = {#M1, #M2}&[may6];
+M = {#M1, #M2}&[may6] // SetPrecision[#, 50] &;
 m = NuFIT`ToMasses[may6];
 U = NuFIT`ToPMNS[may6];
 R = RRep["NH", #z, #\[Zeta]]&[may6];
-Y = (Sqrt[2]I/vev) DiagonalMatrix[Sqrt[M]].R.DiagonalMatrix[Sqrt[m]].ConjugateTranspose[U]//FullSimplify;
-{msq[M[[1]]]/2, M[[1]]^2/(16\[Pi]^2) Tr[Y.ConjugateTranspose[Y]]}
+Y = (Sqrt[2]I/vev) DiagonalMatrix[Sqrt[M]].R.DiagonalMatrix[Sqrt[m]].ConjugateTranspose[U]//FullSimplify // SetPrecision[#, 50]&;
+{msq[M[[1]]]/2, M[[1]]^2/(16\[Pi]^2) Tr[Y.ConjugateTranspose[Y]]} // CHOP
 
 
-res = TwoGenResLept[Transpose[Y], M];
-res["\[Epsilon]mix(full)"]//Chop (*2.22 of 1404.1003 *)
-res["\[Epsilon]mix"]//Chop  (*6.1 of 1608 or A.2 of 1404 *)
-res["\[Epsilon]osc"]//Chop  (*6.3 of 1608 *)
-res["\[Epsilon]"]//Chop     (* mix + osc *)
+(* Verification of CI parameterization *)
+Mnu = ArrayFlatten[{{0, Transpose[Y]vev/Sqrt[2]},{Y vev/Sqrt[2], {{M[[1]], 0}, {0, M[[2]]}}}}];
+Eigenvalues[Mnu.ConjugateTranspose[Mnu]] //CHOP//Sqrt
+Sort[%] / {1, m[[2]],m[[3]],M[[1]],M[[2]]}
+
+
+(* Convention: h in 1404.1003 is equal to Y in 1611.03827. *)
+res = TwoGenResLept[ConjugateTranspose[Y], M];
+res["\[Epsilon]mix(full)"]//CHOP (*2.22 of 1404.1003 *)
+res["\[Epsilon]mix"]//CHOP  (*6.1 of 1608 or A.2 of 1404 *)
+res["\[Epsilon]osc"]//CHOP  (*6.3 of 1608 *)
+res["\[Epsilon]"]//CHOP     (* mix + osc *)
+%//Flatten//Total
 
 
 gstar = (6+3+3+2+1)*2*3 * (7/8) + 2*2 + (8 + 3 + 1)*2;

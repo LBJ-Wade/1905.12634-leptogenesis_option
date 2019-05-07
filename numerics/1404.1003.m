@@ -66,8 +66,8 @@ TwoGenResLept[hMat_, MMat_] := Module[{
     (M[a]^2-M[b]^2)M[a]\[CapitalGamma]0[b] / ((M[a]^2-M[b]^2)^2 + (M[a]\[CapitalGamma]0[b])^2)
   ], {l,3}, {a,2}]; (*2.22\[Rule]A.2*)
 
-  (* borrowed from 6.3 of 1611.03287; note that Y=Transpose[h] *)
-  obj["\[Epsilon]osc"] = Table[Module[{b=3-a, hdh=Dag[hMat].hMat, YYD=Transpose[hMat].Conjugate[hMat]}, 
+  (* borrowed from 6.3 of 1611.03287; note that Y=Dagger[h] *)
+  obj["\[Epsilon]osc"] = Table[Module[{b=3-a, hdh=Dag[hMat].hMat, YYD=Dag[hMat].hMat},
     (Im[hc[l,a]h[l,b]hdh[[a,b]]] + (M[a]/M[b])Im[hc[l,a]h[l,b]hdh[[b,a]]]) / (hdh[[a,a]]hdh[[b,b]]) *
     (M[a]^2-M[b]^2)M[a]\[CapitalGamma]0[b] / ((M[a]^2-M[b]^2)^2 + (M[a]\[CapitalGamma]0[a]+M[b]\[CapitalGamma]0[b])^2 Det[Re[YYD]]/(YYD[[a,a]]YYD[[b,b]]))
   ], {l,3}, {a,2}]; (*2.22\[Rule]A.2*)
