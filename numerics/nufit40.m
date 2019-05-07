@@ -10,6 +10,7 @@ BestFit::usage = "Give the best fit value.";
 CI1::usage = "Give 1-sigma confidence interval.";
 CI3::usage = "Give 3-sigma confidence interval.";
 ToPMNS::usage = "Construct PMNS matrix from input values.";
+ToMasses::usage = "Construct neutrino mass array from input values.";
 
 NuFIT::InvalidKey = "Invalid key or hierarchy is specified.";
 
@@ -58,6 +59,8 @@ ToPMNS[data_Association] := Module[{
    {-s12 c23 - c12 s23 s13 e,  c12 c23 - s12 s23 s13 e, s23 c13},
    { s12 s23 - c12 c23 s13 e, -c12 s23 - s12 c23 s13 e, c23 c13}
   }]
+ToMasses[data_Association] := Module[{d21=data["\[CapitalDelta]msq21"], d3l=data["\[CapitalDelta]msq3l"]},
+  If[d3l>0, {0, Sqrt[d21], Sqrt[d3l]}, {Sqrt[-d3l-d21], Sqrt[-d3l], 0}]];
 
 
 MCMC[hier_String, fixed_Association] := MCMC[hier, fixed, 1/3];
