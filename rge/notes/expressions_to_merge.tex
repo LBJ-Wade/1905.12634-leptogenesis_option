@@ -87,6 +87,7 @@
 \newcommand{\TOWRITE}[1]{{{\footnotesize \color{blue} (#1)}}}
 \newcommand{\cmark}{\ding{51}} % check mark
 \newcommand{\xmark}{\ding{55}} % X mark
+\newcommand{\C}{\color{magenta}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -276,23 +277,31 @@ where
 \end{split}\end{equation}
 
 \subsection{Higgs potential}
-Following [1611.03827],
+Here we calculate the threshold correction to the Higgs potential from the consistency of the one-loop effective potential $V\w{eff}$.
+The theory with and without the right-handed neutrinos, which we call the ``full'' theory and the EFT, should have the same effective potential at some matching scale $Q_0$.
+Hence, comparing the effective potential, we can derive the corrections for the tree-level Higgs potential.
 
+Following [1611.03827], we denote the tree-level Higgs potential by
 \begin{equation}
- V = -\mu^2(\phi^\dagger \phi) + \lambda(\phi^\dagger \phi)^2,
+ V = -\mu^2|\phi|^2 + \lambda|\phi|^4,
 \end{equation}
 which gives $m_h^2 = 2\mu^2 = 2\lambda v^2$ with $\vev{\phi}=v/\sqrt{2}$.
+The effective potential is given by, at the one-loop level,
+\begin{equation}
+ V\w{eff}(Q) = V(Q) + V^{(1)}(Q),
+\end{equation}
+and the difference between the two theories are
+\begin{equation}
+\Delta V := V\w{full}^{(1)}(\phi;Q) - V\w{EFT}^{(1)}(\phi;Q)
+= \sum_{a=1,2}\frac{-2}{64\pi^2}M_a(\phi)^4\left(\log\frac{M_a(\phi)^2}{Q^2}-\frac32\right).
+\end{equation}
+Therefore, at the matching scale $Q_0$, the tree-level potential should satisfy
+\begin{equation}
+ V\w{full}(Q_0) - V\w{EFT}(Q_0) = -\Delta V,
+\end{equation}
+which gives the threshold corrections.
 
-We calculate the threshold correction to $\mu^2$ and $\lambda$ by matching the effective potential.
-The difference of the EFT, in which the heavy neutrinos are integrated out, and the full theory is given by
-\TODO{Here $M_a$ is physical mass}
-\begin{align}
- \Delta V(\phi;Q)
-&= V\w{full}(\phi;Q) - V\w{EFT}(\phi;Q)\\
-&= \sum_{a=1,2}\frac{-2}{64\pi^2}M_a(\phi)^4\left(\frac{M_a(\phi)^2}{Q^2}-\frac32\right),
-\end{align}
-where $Q$ is the matching scale and $M_a$ is the physical masses of the heavier neutrinos.
-Expanding $\Delta V$ in terms of $\phi$,
+The difference $\Delta V$ is expanded in terms of $\phi$ as
 \begin{align}
  \Delta V
 &= \text{(const.)} - \Delta \mu^2 |\phi|^2 + \Delta \lambda |\phi|^4 + \Order\left(|\phi|^6\right),
@@ -328,7 +337,71 @@ for $M_2\simeq M_1$, they approach to $f_1=1$, $f_2=\log({M_1^2}/{Q^2})$, and $f
 \Bigr].
 \end{align}
 
+The neutrino-option scenario requires $\mu^2\w{full}=0$, i.e.,
+\begin{equation}
+ \mu^2\w{full}(Q_0) = \mu^2\w{EFT}(Q_0) - \Delta \mu^2(Q_0) = 0.
+\end{equation}
+Therefore, the condition for the neutrino-option scenario is summarized as
+\begin{equation}
+ \mu^2\w{EFT}(Q_0) = -\frac{M_1^2}{8\pi^2}\Tr(YY^\dagger)\left(1-\log\frac{M_1^2}{Q_0^2}\right)
+\end{equation}
+at the one-loop level, or using $Q_0=M_1\ee^{-3/4}$,
+\begin{equation}
+ \mu^2\w{EFT}(Q_0) = +\frac{M_1^2}{16\pi^2}\Tr(YY^\dagger).
+\end{equation}
 
+
+
+
+\appendix
+\section{Comparison}
+Here we compare our results with literature; we use {\C magenta color} for the variables/notations in other papers, while black letters are in our notation
+\begin{align*}
+ V &= -\mu^2(\phi^\dagger \phi) + \lambda(\phi^\dagger \phi)^2,&
+m_h^2 &= 2\mu^2=2\lambda v^2,&
+ v &:= \sqrt2 \vev{\phi},
+\end{align*}
+or $v\sim246\GeV$, $\mu^2\sim(88\GeV)^2\sim7700\GeV^2$, and $\lambda\sim0.13$.
+
+Brivio--Trott~\ref{1809.03450} uses
+\begin{equation}
+\C
+ V(H^\dagger H) = -\frac{m_{0}^{2}+\Delta m^{2}}{2}\left(H^{\dagger} H\right)+\left(\lambda_{0}+\Delta \lambda\right)\left(H^{\dagger} H\right)^{2} + \cdots
+\end{equation}
+and derives
+\begin{equation}
+\C
+\Delta m^{2}=-\frac{\left|\omega_{p}\right|^{2} M_{p}^{2}}{4 \pi^{2}}\left(1+\log \frac{\mu^{2}}{M_{p}^{2}}\right)=\frac{1}{8 \pi^{2}}\left[M_{1}^{2}\left|\omega_{1}\right|^{2}+M_{2}^{2}\left|\omega_{2}\right|^{2}\right],
+\end{equation}
+which is consistent with our results as $\Delta \mu^2 = \C\Delta m^2/2$.\footnote{Their $\Delta \lambda$, which SI thinks incorrect, is totally inconsistent with our results.}
+
+
+Casas et al.~\ref{hep-ph/9904295} uses effective potential approach:
+\begin{align}
+ \C
+V=V\w{SM} + \Delta V_\nu,\qquad
+V\w{tree}=-\frac12 m^2\phi^2+\frac18\lambda\phi^2+\Omega,
+\end{align}
+where ${\C v=\vev{\phi}}=246\GeV=v=\sqrt{2}\vev{\phi}$, so (fixing a typo)
+$  {\C V\w{tree}}=-{\C m^2}\phi^2+{\C (\lambda/2)}\phi^4 $.
+Then,
+\begin{equation}\C
+ \Delta V_{\nu}=-\frac{1}{32 \pi^{2}}\left[m_{\nu_{1}}^{4} \log \frac{m_{\nu_{1}}^{2}}{\mu^{2}}+
+m_{\nu_{2}}^{4} \log \frac{m_{\nu_{2}}^{2}}{\mu^{2}}\theta(\mu-M) \right]
+\end{equation}
+and
+\begin{equation}\C
+ \Delta\w{th} V=-\frac{2}{64 \pi^{2}}m_{\nu_{2}}^{4} \log \frac{m_{\nu_{2}}^{2}}{\mu^{2}}=\Delta V_{\mu>M} - \Delta V_{\mu<M},
+\end{equation}
+where one should note that ${\C \mu^2}=Q^2\ee^{3/2}$.
+Their results, which is evaluated at $\C\mu=M$,
+\begin{equation}\C
+ \Delta\w{th} m^{2}=\frac{1}{16 \pi^{2}} Y_{\nu}^{2} M^{2},
+\qquad
+\Delta\w{th} \lambda=-\frac{5}{16 \pi^{2}} Y_{\nu}^{4},
+\end{equation}
+are consistent with our results; note that
+${\C\Delta\w{th}m^2} = \Delta\mu^2$ and ${\C\Delta\w{th}\lambda/2}=\Delta\lambda$.
 
 
 \end{document}
