@@ -57,9 +57,22 @@ TwoGenResLept[hMat_, MMat_] := Module[{
     },
     Table[(Abs[obj["H"][[l,a]]]^2+Abs[obj["Hc"][[l,a]]]^2)/s[[a,a]], {l, 3}, {a, 2}]];
   
-  obj["\[Epsilon]"] = Table[Module[{H=obj["H"], Hc=obj["Hc"]},
+  obj["\[Epsilon]mix(full)"] = Table[Module[{H=obj["H"], Hc=obj["Hc"]},
     (Abs[H[[l,a]]]^2 - Abs[Hc[[l,a]]]^2) / ( (Dag[H].H)[[a,a]] + (Dag[Hc].Hc)[[a,a]] )
-  ], {l,3}, {a,2}];
+  ], {l,3}, {a,2}]; (*2.22*)
+
+  obj["\[Epsilon]mix"] = Table[Module[{b=3-a, hdh=Dag[hMat].hMat}, 
+    (Im[hc[l,a]h[l,b]hdh[[a,b]]] + (M[a]/M[b])Im[hc[l,a]h[l,b]hdh[[b,a]]]) / (hdh[[a,a]]hdh[[b,b]]) *
+    (M[a]^2-M[b]^2)M[a]\[CapitalGamma]0[b] / ((M[a]^2-M[b]^2)^2 + (M[a]\[CapitalGamma]0[b])^2)
+  ], {l,3}, {a,2}]; (*2.22\[Rule]A.2*)
+
+  (* borrowed from 6.3 of 1611.03287; note that Y=Transpose[h] *)
+  obj["\[Epsilon]osc"] = Table[Module[{b=3-a, hdh=Dag[hMat].hMat, YYD=Transpose[hMat].Conjugate[hMat]}, 
+    (Im[hc[l,a]h[l,b]hdh[[a,b]]] + (M[a]/M[b])Im[hc[l,a]h[l,b]hdh[[b,a]]]) / (hdh[[a,a]]hdh[[b,b]]) *
+    (M[a]^2-M[b]^2)M[a]\[CapitalGamma]0[b] / ((M[a]^2-M[b]^2)^2 + (M[a]\[CapitalGamma]0[a]+M[b]\[CapitalGamma]0[b])^2 Det[Re[YYD]]/(YYD[[a,a]]YYD[[b,b]]))
+  ], {l,3}, {a,2}]; (*2.22\[Rule]A.2*)
+
+  obj["\[Epsilon]"] = obj["\[Epsilon]mix"] + obj["\[Epsilon]osc"];
   
   (*kappa*)
   Module[{
@@ -85,12 +98,13 @@ DiffEqs[twoGenResLeptObj_, gstar_] := Module[{
   obj["rl"] = twoGenResLeptObj;
   obj["gstar"] = gstar;
   obj["HN"] = Sqrt[4\[Pi]^3 gstar/45] Min[twoGenResLeptObj["M"]]^2 / MPlanck; (*2.2*)
-  obj["K"] = Table[twoGenResLeptObj["\[CapitalGamma]"][[a]] / (obj["HN"] Zeta[3]), {a,2}];
+  obj["Ka"] = Table[twoGenResLeptObj["\[CapitalGamma]"][[a]] / (obj["HN"] Zeta[3]), {a,2}];
+  obj["Keff"] = Table[twoGenResLeptObj["\[Kappa]"][[l]] Sum[obj["Ka"][[a]] twoGenResLeptObj["B"][[l,a]], {a,2}], {l,3}];
   obj["\[Eta]DE"][\[Eta]_, a:1|2, z_] := Module[{},
-    D[\[Eta][a][z],z]==B1dB2[z](1+(1-obj["K"][[a]] z)\[Eta][a][z])
+    D[\[Eta][a][z],z]==B1dB2[z](1+(1-obj["Ka"][[a]] z)\[Eta][a][z])
   ];
   obj["\[Delta]DE"][\[Eta]_, \[Delta]_, l:1|2|3, z_] := Module[{rl=obj["rl"]},
-    D[\[Delta][l][z],z]==z^3 BesselK[1,z] Sum[obj["K"][[a]](rl["\[Epsilon]"][[l,a]] \[Eta][a][z] -(2/3)rl["B"][[l,a]]rl["\[Kappa]"][[l]]\[Delta][l][z]), {a,2}]];
+    D[\[Delta][l][z],z]==z^3 BesselK[1,z] Sum[obj["Ka"][[a]](rl["\[Epsilon]"][[l,a]] \[Eta][a][z] -(2/3)rl["B"][[l,a]]rl["\[Kappa]"][[l]]\[Delta][l][z]), {a,2}]];
   obj
 ]  
 
