@@ -5,6 +5,7 @@ BeginPackage["ResLept14041003`"];
 
 TwoGenResLept::usage = "Create objects from Yukawa(3,2) and Mass (2) matrices.";
 DiffEqs::usage = "Construct differential equations from TwoGenResLept object and g*.";
+B1dB2::usage = "Equals to K1[z] / K2[z]."
 
 TwoGenResLept::InvalidDimension = "Invalid dimension of h or M.";
 
