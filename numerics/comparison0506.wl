@@ -70,8 +70,10 @@ Chop[%] /. \[Eta][a_]->Function[z, \[Eta]L[a][Log[z]]] /. z->Exp[lz] // FullSimp
 \[Eta]sol = NDSolve[{%, \[Eta]Init}, {\[Eta]L[1], \[Eta]L[2]}, {lz, lz0, lzSph}];
 {\[Eta]L[1][lzSph], \[Eta]L[2][lzSph], \[Eta]L[1][lzSph]+\[Eta]L[2][lzSph]} /. \[Eta]sol
 
-\[Eta]solApprox = Chop[1/(de["Ka"][[#]]Exp[lz])] &/@ {1,2};
-LogPlot[{{\[Eta]L[1][lz], \[Eta]L[2][lz]}/.\[Eta]sol, \[Eta]solApprox} //Evaluate, {lz, lz0, lzSph}, PlotLegends->{"\!\(\*SubscriptBox[\(\[Eta]\), \(1\)]\)", "\!\(\*SubscriptBox[\(\[Eta]\), \(2\)]\)", "\!\(\*SubsuperscriptBox[\(\[Eta]\), \(1\), \(approx\)]\)(2.25)", "\!\(\*SubsuperscriptBox[\(\[Eta]\), \(2\), \(approx\)]\)(2.25)"}]
+LogPlot[{
+    {\[Eta]L[1][lz], \[Eta]L[2][lz]}/.\[Eta]sol,
+    de["\[Eta]SolApprox"][Exp[lz]]
+ } //Evaluate, {lz, lz0, lzSph}, PlotLegends->{"\!\(\*SubscriptBox[\(\[Eta]\), \(1\)]\)", "\!\(\*SubscriptBox[\(\[Eta]\), \(2\)]\)", "\!\(\*SubsuperscriptBox[\(\[Eta]\), \(1\), \(approx\)]\)(2.25)", "\!\(\*SubsuperscriptBox[\(\[Eta]\), \(2\), \(approx\)]\)(2.25)"}]
 
 
 {de["\[Delta]DE"][\[Eta],\[Delta],1,z], de["\[Delta]DE"][\[Eta],\[Delta],2,z], de["\[Delta]DE"][\[Eta],\[Delta],3,z]}//Simplify
@@ -80,10 +82,11 @@ LogPlot[{{\[Eta]L[1][lz], \[Eta]L[2][lz]}/.\[Eta]sol, \[Eta]solApprox} //Evaluat
   \[Delta][a_]:>Function[z, \[Delta]L[a][Log[z]]],
   z->Exp[lz]
 } //. \[Eta]sol // Simplify;
-\[Delta]sol = NDSolve[{\[Delta]DEtoSolve, (\[Delta]L[#][lz0]==-1*^-12) &/@ {1,2,3}}, {\[Delta]L[1], \[Delta]L[2], \[Delta]L[3]}, {lz, lz0, lzSph}];
+\[Delta]sol = NDSolve[{\[Delta]DEtoSolve, (\[Delta]L[#][lz0]==1*^-18) &/@ {1,2,3}}, {\[Delta]L[1], \[Delta]L[2], \[Delta]L[3]}, {lz, lz0, lzSph}];
 {\[Delta]L[1][lzSph], \[Delta]L[2][lzSph], \[Delta]L[3][lzSph], \[Delta]L[1][lzSph] + \[Delta]L[2][lzSph] + \[Delta]L[3][lzSph]} /. \[Delta]sol
 
-z3 = 1.25Log[25de["Keff"]];
-\[Delta]solApprox = Table[3/(2Min[z, z3[[l]]]) Sum[res["\[Epsilon]"][[l,a]]/de["Keff"][[l]], {a, 2}], {l, 3}] /. z->Exp[lz]//CHOP;
-LogPlot[{\[Delta]L[#][lz]&/@{1,2,3} /. \[Delta]sol, \[Delta]solApprox} // Abs // Evaluate, {lz, lz0, lzSph},
+LogPlot[{
+    \[Delta]L[#][lz]&/@{1,2,3} /. \[Delta]sol,
+    de["\[Delta]SolApprox"][Exp[lz]]
+  } // Abs // Evaluate, {lz, lz0, lzSph},
   PlotLegends->{"\!\(\*SubscriptBox[\(\[Delta]\[Eta]\), \(1\)]\)", "\!\(\*SubscriptBox[\(\[Delta]\[Eta]\), \(2\)]\)", "\!\(\*SubscriptBox[\(\[Delta]\[Eta]\), \(3\)]\)", "\!\(\*SubsuperscriptBox[\(\[Delta]\[Eta]\), \(1\), \(approx\)]\)(2.33)", "\!\(\*SubsuperscriptBox[\(\[Delta]\[Eta]\), \(2\), \(approx\)]\)(2.33)", "\!\(\*SubsuperscriptBox[\(\[Delta]\[Eta]\), \(2\), \(approx\)]\)(2.33)"}]

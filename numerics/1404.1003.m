@@ -106,6 +106,11 @@ DiffEqs[twoGenResLeptObj_, gstar_] := Module[{
   ];
   obj["\[Delta]DE"][\[Eta]_, \[Delta]_, l:1|2|3, z_] := Module[{rl=obj["rl"]},
     D[\[Delta][l][z],z]==z^3 BesselK[1,z] Sum[obj["Ka"][[a]](rl["\[Epsilon]"][[l,a]] \[Eta][a][z] -(2/3)rl["B"][[l,a]]rl["\[Kappa]"][[l]]\[Delta][l][z]), {a,2}]];
+
+  obj["\[Eta]SolApprox"] = Module[{z}, Function@@{z, 1/z/obj["Ka"]}];
+  obj["\[Delta]SolApprox"] = Module[{z, z3=(5/4)Log[25obj["Keff"]]},
+    Function @@ {z, Table[3/(2Min[z, z3[[l]]]) Sum[twoGenResLeptObj["\[Epsilon]"][[l,a]]/obj["Keff"][[l]], {a, 2}], {l, 3}]}
+  ];
   obj
 ]  
 
