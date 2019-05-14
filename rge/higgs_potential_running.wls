@@ -66,4 +66,26 @@ Clear[msq];
 rge1 = NDSolve@@getRGEs[getCouplingsAtMt[EWInput, 0], EWInput["MT"], 10^20, 1];
 rge2 = NDSolve@@getRGEs[getCouplingsAtMt[EWInput, 1], EWInput["MT"], 10^20, 2];
 rge3 = NDSolve@@getRGEs[getCouplingsAtMt[EWInput, 2], EWInput["MT"], 10^20, All];
-LogLinearPlot[lam[Log[q^2]]/.{rge1, rge2, rge3}//Evaluate, {q, EWInput["MT"], 10^19}, PlotRange->{{10^2, 10^20}, {-0.10, 0.15}}]
+running = LogLinearPlot[
+  {lam[Log[q^2]], Sqrt[msq[Log[q^2]]/2]/1000} /.{rge1, rge2, rge3} //Evaluate,
+  {q, EWInput["MT"], 10^19},
+    PlotRange->{{10^2, 10^18}, {-0.05, 0.15}},
+  PlotStyle->{
+    {color[1], Dotted},
+    {color[3], Dotted},
+    {color[1]},
+    {color[3]},
+    {color[1], Dashed},
+    {color[3], Dashed}
+  },
+  FrameLabel->{MaTeX["Q\\,\\textrm{/\\,GeV}"], None},
+  PlotLegends->Placed[
+    LineLegend[
+      Automatic,
+      {None, None, MaTeX["\\lambda"], MaTeX["m^2\\,\\textrm{/\\,TeV}"], None, None},
+      LegendFunction->(Framed[#, FrameStyle->None, FrameMargins->0, Background->Directive[White,Opacity[0]]]&)
+    ], {0.8,0.5}],
+  Epilog->{
+    Inset[MaTeX["V=\\lambda |\\phi|^4 - m^2|\\phi|^2"],{33,0.13}]
+  }]
+outputPDF[running];
