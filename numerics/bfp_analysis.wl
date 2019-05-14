@@ -131,12 +131,95 @@ LogLogPlot[{
     PlotLegends->{"f(\!\(\*SubscriptBox[\(M\), \(1\)]\))/\[Sum] \!\(\*SubscriptBox[\(m\), \(i\)]\) (NH)", "f(\!\(\*SubscriptBox[\(M\), \(1\)]\))/\[Sum] \!\(\*SubscriptBox[\(m\), \(i\)]\) (IH)"},
     PlotRange->{{8*^5, 10^7}, {1, 1000}}
     ]
-    
 
 
-tm[i:1|2] := vev^2/2 yydag[i,i]/Subscript[M, i]
-tm[1]
-tm[2]
+(* ::Section:: *)
+(*Leptogenesis*)
 
 
-(fneutopt[M1] /. {\[Mu]sq[q_]:>msq[q]/2, vev->246}) / Total[ToMasses[BestFit["NH"]]]//.M1->2*^5
+fmix[i_] := Module[{j=3-i, Mi, Mj, R},
+  R = Mi \[CapitalGamma][j] / (Mi^2 - Mj^2) /. {Mi -> Subscript[M, i], Mj->Subscript[M, j]};
+  R/(1+R^2)]
+fosc[i_] := Module[{j=3-i, Mi, Mj, R},
+  R = Mi \[CapitalGamma][j] / (Mi^2 - Mj^2) /. {Mi -> Subscript[M, i], Mj->Subscript[M, j]};
+  R/(1+R^2 HoldForm[\[Rho]osc])]
+
+
+(* ::Input:: *)
+(*Series[fmix[2] + fosc[2] - (fmix[1] + fosc[1]) /. {x : HoldForm[\[Mu]][_] :> \[Epsilon] x}, {\[Epsilon], 0, 2}]*)
+(*Normal[%]*)
+
+
+UdU[i_, a_, j_] := ReUdU[i,a,j] + I ImUdU[i,a,j];
+ReUdU[i_, a_, j_] /; i<j := ReUdU[j, a, i]
+ImUdU[i_, a_, j_] /; i==j := 0
+ImUdU[i_, a_, j_] /; i<j := (-1)ImUdU[j, a, i]
+
+
+(* ::Input:: *)
+(*hierarchy = "NH";*)
+(*Im[2/mtot Sum[RRep[[2,i]]Dagger[RRep][[j,1]]rm[i]rm[j] UdU[i,a,j],{i,3},{j,3}]]//ComplexExpand // Collect[#, {Cosh[2x], Sinh[2x]}, FullSimplify]&*)
+(*hierarchy = "IH";*)
+(*Im[2/mtot Sum[RRep[[2,i]]Dagger[RRep][[j,1]]rm[i]rm[j] UdU[i,a,j],{i,3},{j,3}]] //ComplexExpand// Collect[#, {Cosh[2x], Sinh[2x]}, FullSimplify]&*)
+
+
+(* ::Input:: *)
+(*Series[(M[1]-M[2])/M[2] (fmix[1]+fosc[1])Fp1 + (M[2]-M[1])/M[1] (fmix[2]+fosc[2])Fp2 /. {x: HoldForm[\[Mu]][_] :> \[Epsilon] x}, {\[Epsilon],0,2}] /. M[i_]:>Subscript[M, i]//FullSimplify*)
+
+
+(* ::Input:: *)
+(*hierarchy = "NH";*)
+(*Sum[rm[j](Dagger[RRep].RRep)[[j,i]]rm[i]UdU[i,a,j],{i,3},{j,3}]//ComplexExpand//Collect[#, {Cosh[2x], Sinh[2x]}, FullSimplify]&*)
+(*hierarchy = "IH";*)
+(*Sum[rm[j](Dagger[RRep].RRep)[[j,i]]rm[i]UdU[i,a,j],{i,3},{j,3}]//ComplexExpand//Collect[#, {Cosh[2x], Sinh[2x]}, FullSimplify]&*)
+
+
+G2[fit_] := Assuming[\[Sigma]>0,
+  Module[{
+      L=If[hierarchy=="NH",2,1],
+      H=If[hierarchy=="NH",3,2],
+      U=ToPMNS[fit].DiagonalMatrix[{1,Exp[I \[Sigma]],1}],
+      m=ToMasses[fit]
+    },
+    Table[(2Sqrt[m[[L]] m[[H]]]/Total[m])Im[U[[a,L]]Conjugate[U[[a,H]]]],{a,3}]] // ComplexExpand // FullSimplify]
+G1[fit_] := Assuming[\[Sigma]>0,
+  Module[{
+      U=ToPMNS[fit].DiagonalMatrix[{1,Exp[I \[Sigma]],1}],
+      m=ToMasses[fit]
+    },
+    Table[Sum[(Sqrt[m[[i]]^2]/Total[m])Abs[U[[a,i]]],{i,3}],{a,3}]]//FullSimplify]
+
+
+hierarchy="NH";
+G1[BestFit["NH"]]
+G2[BestFit["NH"]]
+Plot[{%%, %}//.\[Sigma]->sop \[Pi]//Evaluate,{sop, -1, 1},
+  PlotStyle->color/@{1,2,3,1,2,3}, PlotLegends->{"NH; e", "NH; \[Mu]", "NH; \[Tau]", None, None, None}]
+outputPDF["f_NH", %]
+
+hierarchy="IH";
+G1[BestFit["IH"]]
+G2[BestFit["IH"]]
+Plot[{%%, %}//.\[Sigma]->sop \[Pi]//Evaluate,{sop, -1, 1},
+  PlotStyle->color/@{1,2,3,1,2,3}, PlotLegends->{"IH; e", "IH; \[Mu]", "IH; \[Tau]", None, None, None}]
+outputPDF["f_IH", %]
+
+
+hierarchy="NH";
+sum = With[{g1 = G1[BestFit[hierarchy]], g2 = G2[BestFit[hierarchy]]},
+      Sum[(g1[[a]]Tanh[2x]-\[Zeta] g2[[a]])/(g1[[a]]-\[Zeta] g2[[a]]Tanh[2x])/Cosh[2x], {a,3}]]
+Plot[(Maximize[Abs[sum/.\[Zeta]->1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+Plot[(Maximize[Abs[sum/.\[Zeta]->-1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+
+
+hierarchy="IH";
+sum = With[{g1 = G1[BestFit[hierarchy]], g2 = G2[BestFit[hierarchy]]},
+      Sum[(g1[[a]]Tanh[2x]-\[Zeta] g2[[a]])/(g1[[a]]-\[Zeta] g2[[a]]Tanh[2x])/Cosh[2x], {a,3}]]
+Plot[(Maximize[Abs[sum/.\[Zeta]->1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+Plot[(Maximize[Abs[sum/.\[Zeta]->-1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+
+
+8\[Pi]^2 246^2 100^2//N
+
+
+2.81*^-18 M1 \[Rho]M/GeV / ((4.8*^10GeV^4)/(M1^3 mtot))

@@ -206,135 +206,238 @@ For example, for $M_1=4$ (1) $\times10^6\GeV$, the condition is satisfied with $
 \section{Leptogenesis}
 The resulting lepton asymmetry is approximately given by
 \begin{equation}
- \delta \eta_l\simeq
-\sum_{I\alpha}\frac{\epsilon_{I\alpha}}{K_\alpha^{\mathrm{eff}}\min(z_c,z_\alpha)}=
-\sum_{\alpha}\frac{\sum_I\epsilon_{I\alpha}}{K_\alpha^{\mathrm{eff}}\min(z_c,z_\alpha)}.
+  \delta \eta_l\simeq
+\sum_{\alpha}\frac{\sum_I\epsilon_{I\alpha}}{D_\alpha},
 \end{equation}
-\subsection{Numerator}
-The parameter $\epsilon_{I\alpha}$ is given by two functions,
+where
 \begin{align}
+  \epsilon_{I\alpha} &= F_{I\alpha}f^{\mathrm{vertex}}_{IJ}+\left(
+F_{I\alpha} + \frac{M_I}{M_J}F'_{I\alpha}
+\right)(f^{\mathrm{osc}}_{IJ} + f^{\mathrm{mix}}_{IJ}),
+&
+  D_\alpha &:= K_\alpha^{\text{eff}}\min(z_c, z_\alpha).
+\end{align}
+
+For the numerator, we introduced
+\begin{align*}
  F_{I\alpha} &:= \frac{\Im\left[y_{I\alpha}y^*_{J\alpha}(y y^\dagger)_{IJ}\right]}
 {(y y^\dagger)_{II}(y y^\dagger)_{JJ}}\Bigg|_{J=3-I},
 &
  F'_{I\alpha} &:= \frac{\Im\left[y_{I\alpha}y^*_{J\alpha}(y y^\dagger)_{JI}\right]}
-{(y y^\dagger)_{II}(y y^\dagger)_{JJ}}\Bigg|_{J=3-I}.
-\end{align}
-I emphasize that \textbf{these functions are independent of $\boldsymbol{M_{1,2}}$;} and the asymmetry parameter is given by
-\begin{equation}
- \epsilon_{I\alpha} = F_{I\alpha}f^{\mathrm{vertex}}_{IJ}+\left(
-F_{I\alpha} + \frac{M_I}{M_J}F'_{I\alpha}
-\right)(f^{\mathrm{osc}}_{IJ} + f^{\mathrm{mix}}_{IJ}).
-\end{equation}
-So the dependence of $\epsilon_{I\alpha}$ on $M_I$ is encapsuled into the functions $f$ and $M_I/M_J$:
-\begin{align}
+{(y y^\dagger)_{II}(y y^\dagger)_{JJ}}\Bigg|_{J=3-I},
+\end{align*}
+\begin{align*}
  f^{\text{vertex}}_{IJ}
 &:= \frac{\Gamma_J}{M_I}
-\left[1-\left(1+\frac{M_J^2}{M_I^2}\right)\ln\left(1+\frac{M_I^2}{M_J^2}\right)\right],\\
+\left[1-\left(1+\frac{M_J^2}{M_I^2}\right)\ln\left(1+\frac{M_I^2}{M_J^2}\right)\right],
+&
  f^{\text{mix}}_{IJ}
-&:= \frac{(M_I^2-M_J^2)M_I \Gamma_J}
-         {(M_I^2-M_J^2)^2+M_I^2\Gamma_J^2},\\
+&:= \frac{R_{IJ}}
+         {1+R_{IJ}^2},&
  f^{\text{osc}}_{IJ}
-&:= \frac{(M_I^2-M_J^2)M_I \Gamma_J}
-         {(M_I^2-M_J^2)^2+M_I^2\Gamma_J^2 \mu_{IJ}\rho\w{osc}},
-\end{align}
-where
-\begin{align}
- \mu_{IJ}&=\frac{M_J}{M_I} + \frac{\Gamma_I}{\Gamma_J},
+&:= \frac{R_{IJ}}
+         {1+\rho\w{osc} R_{IJ}^2},
+\end{align*}
+\begin{align*}
+  R_{IJ} &:= \frac{M_I\Gamma_J}{M_I^2-M_J^2},
 &
- \rho\w{osc} &= \frac{\det\left[\Re(yy^\dagger)\right]}{(yy^\dagger)_{11}(yy^\dagger)_{22}}
-= \frac{\cosh^2 2y-\rho_m^2}{\cosh^22y-\rho_m^2\cos^22w}.
-\end{align}
-Note that $\mu_{IJ}=\Order(1)$ and $0<\rho^{\mathrm{osc}}<1$.
-
-The resonant leptogenesis is thus governed by the ratio
-\begin{align}
- R_{IJ} := \frac{M_I\Gamma_J}{M_I^2-M_J^2}
-&= \frac{W_{JJ}}{8\pi}\frac{\mtot M_J}{v^2}\frac{M_IM_J}{M_I^2-M_J^2};
+ \rho\w{osc} &
+= \left(\frac{M_J}{M_I} + \frac{\Gamma_I}{\Gamma_J}\right)
+\frac{\det\left[\Re(yy^\dagger)\right]}{(yy^\dagger)_{11}(yy^\dagger)_{22}}.
+\end{align*}
+while, for the denominator,
+\begin{align*}
+ z_\alpha &= 1.25\log25 K_\alpha^{\mathrm{eff}},&
+ z_c &= \frac{M_1}{149\GeV},
 &
- f^{\mathrm{osc}}_{IJ}
-&= \frac{R_{IJ}}{1+R_{IJ}^2\mu_{IJ}\rho\w{osc}}.
-\end{align}
-In the parameter region of our interest, $R_{IJ}\ll 1$ and
-\begin{equation}
- f_{IJ}^{\mathrm{mix}}\sim f_{IJ}^{\mathrm{osc}}\sim R_{IJ}
-\gg
- f_{IJ}^{\mathrm{vertex}}\simeq\frac{M_I^2 - M_J^2}{M_I^2}R_{IJ}.
-\end{equation}
+ K_\alpha^{\mathrm{eff}}
+&= \kappa_\alpha \sum_I \frac{\Gamma_I}{H_N}\frac{|y_{I\alpha}|^2}{(yy^\dagger)_{II}}.
+\end{align*}
 
-We then define
-\begin{equation}
- F^{\pm}_\alpha := (F_{2\alpha}+F'_{2\alpha})\pm(F_{1\alpha}+F'_{1\alpha})
-\end{equation}
-and evaluate them, which yields $F^+_\alpha=0$ and
+\subsection{Numerator}
+In this subsection, we assume
+\begin{itemize}
+ \item the contribution from vertex corrections is negligible,
+ \item $\mu_1, \mu_2 \ll \delta M \ll 1$,
+\end{itemize}
+which we should discuss elsewhere (but SI checks the validity).
+Due to the second assumption, we expand the expressions in terms of $\mu_I$, not of $\delta M$.
+
+The numerator is simplified as
+\begin{align}
+  \sum_I\epsilon_{I\alpha}
+\simeq
+  \sum_I\epsilon^{\cancel{\text{vertex}}}_{I\alpha}
+=
+\left(
+F_{I\alpha} + \frac{M_I}{M_J}F'_{I\alpha}
+\right)(f^{\mathrm{osc}}_{IJ} + f^{\mathrm{mix}}_{IJ}),
+\end{align}
+and, defining
+\begin{align}
+ f_{IJ}&:=f_{IJ}^{\mathrm{mix}} + f_{IJ}^{\mathrm{osc}},
+&
+ F^{\pm}_\alpha &:= (F_{2\alpha}+F'_{2\alpha})\pm(F_{1\alpha}+F'_{1\alpha}),
+\end{align}
+we evaluate
+\begin{align}
+ \sum_I\epsilon^{\cancel{\text{vertex}}}_{I\alpha}
+&=
+\left(
+F_{I\alpha} + \frac{M_I}{M_J}F'_{I\alpha}
+\right)(f^{\mathrm{osc}}_{IJ} + f^{\mathrm{mix}}_{IJ}).
+\\&=
+\frac{f_{21}-f_{12}}{2}F_\alpha^-
++ \left(\frac{M_1-M_2}{M_2}F'_{1\alpha}f_{12} + \frac{M_2-M_1}{M_1}F'_{2\alpha}f_{21}\right),
+\end{align}
+where we used $F_\alpha^+=0$.
+Expanding in terms of $\mu_I$ (but not in $\delta M$),
+\begin{align}
+\begin{split}
+  \sum_I\epsilon^{\cancel{\text{vertex}}}_{I\alpha}
+ &=
+  \left[
+ \frac{M_1 M_2}{M_2^2-M_1^2}(W_1\mu_1+W_2\mu_2) + \Order(\mu_I^3)
+  \right]F^-_{\alpha}\\
+ &\qquad+
+\left(
+\frac{2M_1\mu_2W_2F'_{1\alpha} + 2M_2\mu_1W_1F'_{2\alpha}}{M_1+M_2} + \Order(\mu_I^3)
+\right).
+\end{split}\label{eq:1}
+\end{align}
+
+The remaining parts are evaluated as
 \begin{align}
  F^-_\alpha
 &=
 \frac{4\Re\yydag_{12}\Im(y_{1\alpha}^*y_{2\alpha})}{\yydag_{11}\yydag_{22}}
 \\&=
-\frac{2\rho_m\sin2w}{\cosh^22y-\rho_m^2\cos^22w}{2v^2}{\mtot\sqrt{M_1 M_2}}
-\Im(y_{1\alpha}^*y_{2\alpha})
-\\
-&=\frac{2\rho_m\sin2w}{\cosh^22y-\rho_m^2\cos^22w}
-\left[
-G^{(1)}_\alpha \zeta\cosh2y - G^{(2)}_\alpha\sinh2y
-\right],
+\frac{4 \Re W_{12}}{W_1 W_2}\Im\left[
+  \frac{2}{\mtot}
+  \sum_{ij}
+  R_{2i}\sqrt{m_i}(U^\dagger)_{i\alpha} U_{\alpha j}\sqrt{m_j}(R^\dagger)_{j1}
+  \right]
+\\&=
+\frac{4 \Re W_{12}}{W_1 W_2}\left(G_\alpha^{(2)}\zeta\cosh2x - G_\alpha^{(1)}\sinh2x\right),
 \end{align}
 where
 \begin{align}
-  G^{(1)}_\alpha\text{(NH)}
-&= \frac{4\sqrt{m_2m_3}}{m_2+m_3}\Im\left(U_{\alpha2}U_{\alpha3}^*\right)\\
-  G^{(2)}_\alpha\text{(NH)}
-&= (1+\rho_m)|U_{\alpha3}|^2+(1-\rho_m)|U_{\alpha2}|^2\\
-  G^{(1)}_\alpha\text{(IH)}
-&= \frac{4\sqrt{m_1m_2}}{m_1+m_2}\Im\left(U_{\alpha1}U_{\alpha2}^*\right)\\
-  G^{(2)}_\alpha\text{(IH)}
-&= (1+\rho_m)|U_{\alpha2}|^2+(1-\rho_m)|U_{\alpha1}|^2
+  G^{(1)}_\alpha
+&= \sum_i \frac{m_i}{\mtot}\Abs{U_{\alpha i}}^2,
+&
+  G^{(2)}_\alpha
+&=
+\begin{cases}
+\left({2\sqrt{m_2m_3}}/{\mtot}\right)\Im\left(U_{\alpha2}U^*_{\alpha3}\right) & \text{(NH)}\\
+\left({2\sqrt{m_1m_2}}/{\mtot}\right)\Im\left(U_{\alpha1}U^*_{\alpha2}\right) & \text{(IH)}
+\end{cases}
+\end{align}
+Note that $G_\alpha^{(1)}\ge \abs{G_\alpha^{(2)}} \ge 0$.
+Also, for the sub-leading term,
+\begin{align}
+ F'_{I\alpha}
+&=
+\frac{2}{\mtot}\sum_{i,j}
+\frac{\Im\left[W_{JI}\cdot
+R_{Ii}\sqrt{m_i}(U^\dagger)_{i\alpha}U_{\alpha j}\sqrt{m_j}(R^\dagger)_{jJ}
+ W_{JI}\right]}
+{W_1 W_2},
+\end{align}
+which however is not used hereafter.
+
+\subsection{Denominator}
+Now we are to evaluate
+\begin{align}
+ K_\alpha^{\mathrm{eff}}
+= \kappa_\alpha \sum_I \frac{\Gamma_I}{H_N}\frac{|y_{I\alpha}|^2}{(yy^\dagger)_{II}}
+=
+\frac{\kappa_\alpha}{8\pi H_N} \sum_I \frac{2M_I^2}{v^2}\sum_{i,j}\left[
+R_{Ii}\sqrt{m_i}(U^\dagger)_{i\alpha}U_{\alpha j}\sqrt{m_j}(R^\dagger)_{jI}
+\right],
+\end{align}
+where we can assume $M_1\simeq M_2$ since $\mu_I$ does not appear in this expression.
+Hence,
+\begin{align}
+ K_\alpha^{\mathrm{eff}}
+&\approx
+\frac{\kappa_\alpha}{8\pi H_N} \frac{2M_1^2}{v^2}\sum_{I,i,j}\left[
+R_{Ii}\sqrt{m_i}(U^\dagger)_{i\alpha}U_{\alpha j}\sqrt{m_j}(R^\dagger)_{jI}
+\right]\\
+&=
+\frac{\kappa_\alpha}{8\pi H_N} \frac{2M_1^2}{v^2}\sum_{i,j}\left[
+U_{\alpha j}\sqrt{m_j}(R^\dagger R)_{ji}\sqrt{m_i}(U^\dagger)_{i\alpha}
+\right]
+\\&=
+\frac{\kappa_\alpha \mtot}{m_*}
+\left(
+G_\alpha^{(1)}\cosh2x - G_\alpha^{(2)}\zeta\sinh2x
+\right).
 \end{align}
 
-Therefore,
+
+\subsection{Result}
+We now have a simple analytic expression for $\delta \eta_l$ under the assumptions
+\begin{itemize}
+ \item vertex contribution is negligible,
+ \item $\mu_1, \mu_2 \ll \delta M \ll 1$,
+ \item the term in the second line of Eq.~\ref{eq:1} is negligible:
+\end{itemize}
+with $z_*=\min(z_c,z_\alpha)$,
 \begin{align}
- \sum_I\epsilon^{\cancel{\text{vertex}}}_{I\alpha}
-&\approx
-\frac{F^-_\alpha}{2}\left(2R_{21}-2R_{12}\right)
-\\
-&=
-\frac{\mtot}{8\pi v^2}F^-_\alpha\left[W_{11}M_1+W_{22}M_2\right]\frac{M_1M_2}{M_2^2-M_1^2}
-\\&\simeq
-\frac{\rho_m\mtot}{2\pi v^2}\frac{M_1^3}{M_2^2-M_1^2}
-\frac{\cosh2y\sin2w}{\cosh^22y-\rho_m^2\cos^22w}
-\left[
-G^{(1)}_\alpha \zeta\cosh2y - G^{(2)}_\alpha\sinh2y
-\right].
+  \delta \eta_l
+&\simeq
+-\sum_\alpha \frac1{\kappa_\alpha z_*}
+\frac{M_1M_2}{M_2^2-M_1^2}
+\frac{m_*}{\mtot}
+\frac{4(W_1 \mu_1 + W_2 \mu_2)\Re W_{12}}{W_1W_2}
+\frac{G_\alpha^{(1)}\tanh2x-\zeta G_\alpha^{(2)}}
+{G_\alpha^{(1)}-\zeta G_\alpha^{(2)}\tanh2x}
+\\&=
+-\sum_\alpha \frac1{\kappa_\alpha z_*}
+\frac{M_2}{M_2-M_1}
+\frac{m_* M_1}{8\pi v^2}
+\frac{4\rho_m\cosh2x\sin2w}{\cosh^22x-\rho_m^2\cos^22w}
+\left(1+\frac{\rho_m\cos2w}{2\cosh2x}\delta'M\right)
+G_\alpha,\label{eq:2}
 \end{align}
-\subsubsection{Inverted Hierarchy}
-For IH case, this analytic expression is further simplified since $\rho_m\ll 1$:
+where $\delta'M:=2\Delta M/(M_1+M_2)\simeq\delta M$.
+Here, the PMNS-matrix dependence is contained in
 \begin{equation}
- \sum_I\epsilon^{\cancel{\text{vertex}}}_{I\alpha}
- \approx
-\frac{\mtot\rho_m}{2\pi v^2}\frac{M_1^3}{M_2^2-M_1^2}
-\left[G^{(1)}_\alpha \zeta - G^{(2)}_\alpha\tanh2y\right]\sin2w.
+ G_\alpha :=
+\frac{G_\alpha^{(1)}\tanh2x-\zeta G_\alpha^{(2)}}
+{G_\alpha^{(1)}-\zeta G_\alpha^{(2)}\tanh2x}.
 \end{equation}
-where $4$ from mixing and $1$ from oscillation, and the parameters at the best-fit point are
-\begin{align}
- &G^{(1)}_\alpha\text{(IH)}=\left\{
- -0.90\si\sigma, 0.14\co\sigma+0.39\si\sigma, 0.52\si\sigma-0.14\co\sigma
-\right\},\\
- &G^{(2)}_\alpha\text{(IH)}=\left\{
-   0.98, 0.43, 0.60
-\right\}.
-\end{align}
-\subsubsection{Normal Hierarchy}
-At the best-fit point of NH case, $\rho_m^2=0.501$ and the parameters are given by
-\begin{align}
- &G^{(1)}_\alpha\text{(NH)}=\left\{
- -0.067\co\sigma-0.095\si\sigma,
- 0.039\co\sigma+0.63\si\sigma,
- 0.028\co\sigma-0.53\si\sigma
-\right\},\\
- &G^{(2)}_\alpha\text{(NH)}=\left\{
-   0.13, 1.07, 0.80
-\right\}.
-\end{align}
+
+
+
+\section{(a few) Discussion}
+\subsection{Hierarchy}
+Let us evaluate the factors $G_\alpha^{(a)}$ at the NuFIT~4.0 best-fit points.
+For normal hierarchy,
+\begin{align*}
+ G_\alpha^{(1)} &= \pmat{0.208\\0.729\\0.633},
+&
+ G_\alpha^{(2)} &= \pmat{
+  -0.0334 & -0.0477\\
+  +0.0194 & +0.0314\\
+  +0.0140 & -0.0266
+}\pmat{\cos\sigma\\\sin\sigma},
+&
+ \pmat{\rho_m\\\mtot}&=\pmat{0.708 \\ 5.89\EE-2\eV}
+\end{align*}
+and for inverted hierarchy,
+\begin{align*}
+ G_\alpha^{(1)} &= \pmat{0.685\\0.459\\0.533},
+&
+ G_\alpha^{(2)} &= \pmat{
+   0      & -0.452\\
+  +0.0720 & +0.193\\
+  -0.0720 & 0.259
+}\pmat{\cos\sigma\\\sin\sigma},
+&
+ \pmat{\rho_m\\\mtot}&=\pmat{0.00746 \\ 9.95\EE-2\eV}.
+\end{align*}
+Note that the leptogenesis works better in normal hierarchy due to the larger $\rho_m$,
 
 \begin{figure}[ht]
   \centering
@@ -342,137 +445,73 @@ At the best-fit point of NH case, $\rho_m^2=0.501$ and the parameters are given 
   \includegraphics[width=0.49\textwidth]{bfp_analysis_f_IH.pdf}
 \end{figure}
 
-\subsection{Denominator}
-Now we are to evaluate the denominator,
-\begin{equation}
- D_\alpha := K_\alpha^{\text{eff}}\min(z_c, z_\alpha),
-\end{equation}
-where
+\subsection{Strict lower bound}
+Let us derive an analytic upper bound $\overline{\delta \eta_l}$, where the absolute value of analytic expression \eqref{eq:2} is always smaller than it.
+Since $\sin2w/(\cosh^22x-\rho_m^2\cos^22w)$ is maximal for $w=\pi/4$,
 \begin{align}
- z_\alpha &= 1.25\log25 K_\alpha^{\mathrm{eff}},&
- z_c &= \frac{M_1}{149\GeV},
-\end{align}
-and
-\begin{equation}
- K_\alpha^{\mathrm{eff}}
-= \kappa_\alpha \sum_I \frac{\Gamma_I}{H_N}\frac{|y_{I\alpha}|^2}{(yy^\dagger)_{II}}
-= \kappa_\alpha \sum_I \frac{M_I|y_{I\alpha}|^2}{8\pi H_N}.
-\end{equation}
-We further evaluate it as
-\begin{equation}
- K_\alpha^{\mathrm{eff}}
-\approx\frac{M_1}{8\pi H_N} (y^\dagger y)_{\alpha\alpha}
-\approx\frac{M_1^2}{4\pi v^2 H_N} 
-\left(
-U\w{PMNS}\sqrt{m}R^\dagger R\sqrt{m}U^\dagger\w{PMNS}
-\right)_{\alpha\alpha},
-\end{equation}
-where we proceed as
-\begin{align}
- K'_\alpha
-&:=
-\frac{2}{\mtot}\left(
-U\w{PMNS}\sqrt{m}R^\dagger R\sqrt{m}U^\dagger\w{PMNS}
-\right)_{\alpha\alpha}\\
-&= G_\alpha^{(2)} \cosh2y -G_\alpha^{(1)}\zeta\sinh2y,\\
- K_\alpha^{\mathrm{eff}}
-&\approx\frac{M_1^2}{4\pi v^2 H_N} \frac{\mtot}{2}K'_\alpha
-=
-\frac{m\w{tot}M\w{pl}}{8\pi v^2 \cdot 1.66\sqrt{g_*}}K'_\alpha.
-\end{align}
-As we see above, $K_\alpha'$ are $\Order(1)$-parameters; thus
-\begin{equation}
- z_\alpha=1.25\log\frac{25m\w{tot}M\w{pl}}{8\pi v^2 \cdot 1.66\sqrt{g_*}}K'_\alpha\approx 10
-\end{equation}
-for both hierarchies, which is smaller than $z_c$ in the region of our interest.
-Therefore, we evaluate the denominator as
-\begin{align}
- D_\alpha\approx
-\frac{1}{10}\cdot\frac{m\w{tot}M\w{pl}}{8\pi v^2 \cdot 1.66\sqrt{g_*}}\left(G_\alpha^{(2)} \cosh2y -G_\alpha^{(1)}\zeta\sinh2y\right).
-\end{align}
-
-\subsection{Total asymmetry}
-Accordingly, as long as $R_{IJ}\ll 1$, i.e.,
-\begin{equation}
- \delta M \gg  \frac{M_1\mtot}{16\pi v^2},
-\end{equation}
-we approximate the total lepton asymmetry as
-\begin{align}
- \delta \eta_l&
-\approx
-\sum_{\alpha}
-\frac{
-  \frac{\rho_m\mtot}{2\pi v^2}\frac{M_1^3}{M_2^2-M_1^2}
-  \frac{\cosh2y\sin2w}{\cosh^22y-\rho_m^2\cos^22w}
-  \left[G^{(1)}_\alpha \zeta\cosh2y - G^{(2)}_\alpha\sinh2y\right]
-}
-{
-  \frac{1}{10}\cdot\frac{m\w{tot}M\w{pl}}{8\pi v^2 \cdot 1.66\sqrt{g_*}}\left(G_\alpha^{(2)} \cosh2y -G_\alpha^{(1)}\zeta\sinh2y\right)
-}
+  \overline{\delta \eta_l}
+&=
+\frac1{z_*}
+\frac{M_2}{M_2-M_1}
+\frac{m_* M_1}{8\pi v^2}
+\frac{4\rho_m}{\cosh2x}
+\left(1+\frac{\rho_m\cos2w}{2\cosh2x}\delta'M\right)
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha},
 \\&=
--\frac{10\cdot1.66\sqrt{g_*}\rho_m}{M\w{pl}}
-  \frac{4M_1^3}{M_2^2-M_1^2}
-  \frac{\cosh2y\sin2w}{\cosh^22y-\rho_m^2\cos^22w}
-\sum_{\alpha}
-\frac{G^{(1)}_\alpha \zeta - G^{(2)}_\alpha\tanh2y}
-{G_\alpha^{(1)}\zeta\tanh2y-G_\alpha^{(2)}}
-\\&=
--C
-  \frac{M_1^3}{M_2^2-M_1^2}
-  K(z)
-\sum_{\alpha}G_\alpha(z,\zeta),
- \end{align}
-where
-\begin{align}
- C &:= \frac{4\cdot10\cdot1.66\sqrt{g_*}\rho_m}{M\w{pl}}
-\approx
-\frac{4.0\EE{-17} ~~ (4.2\EE{-19})}{\text{GeV}}\quad\text{for NH (IH)},\\
- K(z) &:=   \frac{\cosh2y\sin2w}{\cosh^22y-\rho_m^2\cos^22w},
-\qquad
-G_\alpha(z,\zeta) :=\frac{G^{(1)}_\alpha \zeta- G^{(2)}_\alpha\tanh2y}
-     {G_\alpha^{(1)}\zeta\tanh2y-G_\alpha^{(2)}}.
+\frac1{z_*}
+\frac{M_2}{M_2-M_1}
+\frac{2.81M_1\rho_m}{10^{18}\GeV\cdot\cosh2x}
+\left(1+\frac{\rho_m\cos2w}{2\cosh2x}\delta'M\right)
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha}.
 \end{align}
-Here, $G_a(z,\zeta)$ depends on $U\w{PMNS}$ and $m_i$, while $K(z)$ has no dependence on $U\w{PMNS}$.
-\section{(a few) Discussion}
-We are interested in the lower bound on $M_1$.
-The neutrino-option condition may compensate smaller $M_1$ by having larger $|y|$ as
+Thus, assuming $M_1\gg10^{10}\GeV$, we require $\delta M\ll 1$:
 \begin{equation}
- \cosh2y\simeq \frac{f(M_1)}{\mtot},
+ \overline{\delta \eta_l}
+\simeq
+\frac1{z_*\delta M}
+\frac{2.81M_1\rho_m}{10^{18}\GeV}
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha\cosh2x}.
 \end{equation}
-but for larger $|y|$ the leptogenesis gets worse:
+We can numerically maximize $\sum_\alpha G_\alpha/\cosh2x$ for $x$; around the best-fit point, its maximum value is $\sim1.5$ for both hierarchies.
+Therefore, to get $\delta\eta_l\sim3\EE-8$, we need
 \begin{equation}
- K(z)\approx \frac{\sin2w}{\cosh2y},\qquad
-G_\alpha(z,\zeta) \approx \sign y;
+ \frac{M_1}{\delta M}\sim 2\EE{10}\GeV ~~(2\EE{12}\GeV)
 \end{equation}
-thus, even with $|\sin2w|=1$ with normal hierarchy,
-\begin{equation}
- |\delta \eta_l|
-\approx C \frac{M_1^3}{M_2^2-M_1^2}\frac{1}{\cosh2y}
-\approx \frac{8\pi v^2\cdot C \mtot}{f(M_1)^2}R_{IJ}.
-\end{equation}
-Restricting 
-with numerical evaluation, this yields
-\begin{equation}
- |\delta \eta_l|\approx 10^{-8}\left(\frac{M_1}{4.3~(8.5)~\EE5\GeV}\right)^6 R_{IJ}
-\end{equation}
-Therefore, leptogenesis provides a lower bound at, at least, $430\TeV$ ($850\TeV$) for NH (IH).
-
-\appendix
-\section{Yukawa products}
-We use the Casas--Ibarra parameterization with $z=w+\ii y$ and $\zeta=\pm1$:
-With 
-\begin{align}
- y_{Ii}y^*_{Jj} &= \frac{2}{v^2}\sum_{ab}
-\sqrt{M_I}R_{Ia}\sqrt{m_a}(U^\dagger)_{ai}
-U_{jb}\sqrt{m_b}(R^\dagger)_{bJ}\sqrt{M_J},
-\\
- (yy^\dagger)_{IJ} &= \frac{2}{v^2}\sum_{a}
-\sqrt{M_I}R_{Ia}{m_a}(R^\dagger)_{aJ}\sqrt{M_J},\\
- (y^\dagger y)_{ij} &= \frac{2}{v^2}\sum_{abI}
-U_{ia}\sqrt{m_a}(R^\dagger)_{aI}
-M_I R_{Ib}\sqrt{m_b}(U^\dagger)_{bj}.
-\end{align}
-Regardless of the hierarchy, these Yukawa combinations are rewritten by
+for NH (IH) if $G_\alpha$ has no special cancellation.
 
 
+\subsection{With neutrino option}
+In Section 2, we saw that the neutrino-option condition is satisfied even for smaller $M_1$ with huge $\cosh2x$:
+\begin{equation}
+ \cosh2x\simeq \frac{f(M_1)}{\mtot} = \frac{8\pi^2v^2\mu^2\w{EFT}(Q_0)}{M_1^3\mtot}\approx
+\frac{4.8\EE{10}\GeV^4}{M_1^3\mtot}
+\end{equation}
+This equality is precise for smaller $\delta M$, which we need to have an adequate $\delta \eta_l$:
+\begin{equation}
+ \overline{\delta \eta_l}
+\simeq
+\frac{3\EE-8}{z_*}
+\left(\frac{M_1/(\delta M)^{1/4}}{5.9\EE7\GeV~~(1.6\EE8\GeV)}\right)^4
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha}\Big|_{\text{$\cosh2x$ for n.o.}}.
+\end{equation}
+
+Or, using the upper-bound value of $M_1$,
+\begin{equation}
+  \overline{\delta \eta_l}
+\simeq
+\frac{3\EE-8}{z_*}
+\left(\frac{M_1}{9.4\EE6\GeV}\right)^4\frac{6.3\EE-4}{\delta M}
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha}\Big|_{\text{$\cosh2x$ for n.o.}}.
+\end{equation}
+for NH and
+\begin{equation}
+  \overline{\delta \eta_l}
+\simeq
+\frac{3\EE-8}{z_*}
+\left(\frac{M_1}{7.9\EE6\GeV}\right)^4\frac{5.6\EE-6}{\delta M}
+\sum_\alpha\frac{G_\alpha}{\kappa_\alpha}\Big|_{\text{$\cosh2x$ for n.o.}}.
+\end{equation}
+for IH; therefore, for IH, we need a special cancellation in $\delta M$ or $G_\alpha$.\footnote{
+One may also notice that $G_\alpha\to 1$ for $\cosh 2x\gg 1$.
+}
 \end{document}
