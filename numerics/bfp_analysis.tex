@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{scrartcl}
+\documentclass[a4paper,11pt,captions=tableheading,DIV=12]{scrartcl}
 \pdfoutput=1
 \bibliographystyle{utphys27mod}
 
@@ -95,95 +95,112 @@
 
 %---------------------------------------------------------------------
 \section{Notation}
+\paragraph{Masses}
+We introduce the following notations on the two heavier neutrino masses\footnote{We can safely neglect the differences between $M_I$ and the (diagonalized) Majorana masses.} $M_I$ and the three lighter neutrino masses $m_i$, one of which is zero, as
 \begin{align*}
  \Delta M & := M_2-M_1 > 0 &
  \delta M & := \Delta M/M_1\\
  \Delta M^2 & := M_2^2-M_1^2 &
  \delta M^2 & := \Delta M^2 / M_1^2 \\
  \Delta m & := m\w{heavier} - m\w{lighter}&
- \rho_m   & := \Delta m/\sum_i m_i &
- \mtot    & := \sum_i m_i
+ \rho_m   & := \Delta m/\mtot,&
+ &\qquad \mtot    := \sum_i m_i,\\
+ m\w{heavier} &= m_3~(m_2),&
+ m\w{lighter} &= m_2~(m_1)& &\text{for NH~(IH).}
 \end{align*}
-One should note that $\rho_m\sim 0.7$ for NH and $<0.03$ for IH.
-Also,
-\begin{equation*}
- m\w{heavier} = m_3 \ \ (m_2),\qquad
- m\w{lighter} = m_2 \ \ (m_1)\qquad\text{for NH (IH).}
-\end{equation*}
-Yukawa matrix follows the notation of 1611 paper.
+Numerically, for BFP of NH (IH), $\rho_m\simeq\sqrt{0.5}~(0.0075)$ and $\mtot\simeq5.9~(9.9)\EE{-11}\GeV$.
+
+\paragraph{Yukawa}
+Yukawa matrix follows the notation of 1611 paper, and the CIP is given by
+\begin{equation}
+ y = \ii(v/\sqrt{2})^{-1}\sqrt{M\w{diag}}R\sqrt{m\w{diag}}U^\dagger
+\end{equation}
+with $v=\sqrt\vev{\phi_0}\approx246\GeV$,
+\begin{align}
+ R&=\pmat{0 & +\co z & \zeta \si z \\ 0 & -\si z & \zeta\co z}\quad\text{for NH},&
+ R&=\pmat{+\co z & \zeta \si z & 0 \\ -\si z & \zeta\co z & 0}\quad\text{for IH}.
+\end{align}
+Here, $z\in\mathbb C$ and $\zeta=\pm1$:
+\begin{equation}
+ z = w + \ii x;\qquad w\in\mathbb R,\quad x\in\mathbb R,
+\end{equation}
+and $U=U\w{PMNS}$ follows 1611 paper, i.e., PDG with a phase matrix $\diag(1, \ee^{\ii\sigma}, 1)$.
 \begin{align*}
  \gamma_I &= \frac{(yy^\dagger)_{II}}{8\pi},
 &
  \Gamma_I &= M_I\gamma_I.
 \end{align*}
 
-We use the Casas--Ibarra parameterization with $z=w+\ii y$ and $\zeta=\pm1$:
-\begin{equation}
- y = \ii\vev{\phi_0}^{-1}\sqrt{M\w{diag}}R\sqrt{m\w{diag}}U^\dagger.
-\end{equation}
-With $v=\sqrt\vev{\phi_0}\approx246\GeV$,
+\paragraph{Yukawa products}
+We define
+\begin{align*}
+ W_1 = W_{11} &= \cosh2x -\rho_m\cos2w,&
+ W_{12} &= W_{21}^* = \ii\sinh2x + \rho_m\sin2w,\\
+ W_2 = W_{22} &= \cosh2x +\rho_m\cos2w,&
+ \mu_I  &= \frac{\mtot M_I}{8\pi v^2}\approx 3.9~(6.5)\EE{-17}M_I/\text{GeV},
+\end{align*}
+for NH (IH), which leads us to
 \begin{align}
- y_{Ii}y^*_{Jj} &= \frac{2}{v^2}\sum_{ab}
-\sqrt{M_I}R_{Ia}\sqrt{m_a}(U^\dagger)_{ai}
-U_{jb}\sqrt{m_b}(R^\dagger)_{bJ}\sqrt{M_J},
-\\
- (yy^\dagger)_{IJ} &= \frac{2}{v^2}\sum_{a}
-\sqrt{M_I}R_{Ia}{m_a}(R^\dagger)_{aJ}\sqrt{M_J},\\
- (y^\dagger y)_{ij} &= \frac{2}{v^2}\sum_{abI}
-U_{ia}\sqrt{m_a}(R^\dagger)_{aI}
-M_I R_{Ib}\sqrt{m_b}(U^\dagger)_{bj}.
-\end{align}
-Regardless of the hierarchy, these Yukawa combinations are rewritten by
-\begin{equation}
- \yydag_{IJ} = \frac{\mtot\sqrt{M_IM_J}}{v^2}W_{IJ};
-\end{equation}
-\begin{align}
- W_{11} &= \cosh2y - \rho_m\cos2w, \qquad\qquad
- W_{22} = \cosh2y + \rho_m\cos2w,\\
- W_{12} &= W_{21}^* = \ii\sinh2y + \rho_m\sin2w.
+ \yydag_{IJ} &= \frac{\mtot\sqrt{M_IM_J}}{v^2}W_{IJ},&
+ \Gamma_{I} &= \frac{\yydag_{II}}{8\pi}M_I = \mu_I W_I M_I.
 \end{align}
 
+\paragraph{Effective neutrino masses}
+Remembering that $m_i$ is given by
+\begin{equation}
+ m_i = \left[U^*\left(-\frac{v^2}{2}y\trans M^{-1} y\right)U\right]_{ii}
+     = U^*_{i\alpha}\left(-\frac{v^2}{2}\sum_I \frac{y_{I\alpha}  y_{I\beta}}{M_I}\right)U_{\beta i},
+\end{equation}
+we define
+\begin{align}
+ \widetilde{m_I} &:= \frac{v^2}{2}\sum_\alpha \frac{  \abs{y_{I\alpha}}^2}{M_I}
+                  = \frac{v^2}{2}\frac{\yydag_{II}}{M_I},
+&
+ m_* := 1.66\sqrt{g_*}\frac{8\pi (v^2/2)}{M\w{pl}}\sim 1\EE-{12}\GeV.
+\end{align}
+Note that these effective neutrino masses are related to
+\begin{equation}
+ \widetilde{m_I} = \frac{\mtot}{2}W_I.
+\end{equation}
 
 \section{Neutrino-option condition}
 The neutrino-option condition is given by, matching at $Q_0=M_1\ee^{-3/4}$,
 \begin{equation}
  \mu^2\w{EFT}(Q_0)
-= \frac{M_1^2}{16\pi^2}\Tr\yydag
-=: \frac{M_1^2}{16\pi^2(v^2/2)}T
+= \frac{M_1^2}{16\pi^2}\Tr\yydag.
 \end{equation}
-where $v=\sqrt2\vev{\phi_0}\approx246\GeV$ and $T$ is evaluated as
+Defining
 \begin{equation}
- T :=\frac{v^2}{2}\Tr\yydag
-   = \frac{M_1\mtot}{2}\left[\delta M \rho_m\cos2w + (2+\delta M)\cosh2y\right],
+ f(M_1) := \frac{8\pi^2v^2\cdot\mu^2\w{EFT}(Q_0)}{M_1^3}\Big|_{Q=M_1\exp(-3/4)},
 \end{equation}
-which has a lower bound, while its upper bound is controlled by $y=\Im z$:
-\begin{align}
-\left(\frac{T}{M_1}\right)\w{min}&=\mtot + m\w{lighter}\delta M;&
-\frac{T}{M_1}&\approx\mtot\cosh2y.
-\end{align}
-As the neutrino option requires
+we can rewrite the neutrino-option condition as
 \begin{equation}
-  \frac{T}{M_1}
-=
-  \mu^2\w{EFT}(Q_0) \left(\frac{M_1^3}{16\pi^2\vev{\phi_0}^2}\right)^{-1}=:f(M_1),
+f(M_1)
+ =
+\frac{v^2}{2}\frac{\Tr\yydag}{M_1}.
 \end{equation}
-an upper bound on $M_1$ is obtained by
+The right-hand side is parameterized as\footnote{Notice that
+$\cosh2x = (\widetilde{m_1}+\widetilde{m_2})/\mtot$, where $\widetilde{m_I}$ is an effective neutrino parameter.}
 \begin{equation}
- M_1<9.4\ (7.9)\times10^6\GeV\quad\text{for NH (IH)},
+\frac{v^2}{2}\frac{\Tr\yydag}{M_1}
+= \mtot\left[\cosh2x + \frac{\delta M}{2}(\cosh2x+\rho_m\cos2w)\right] > \mtot.
 \end{equation}
-while $M_1$ has no lower bound since we can always choose $y$ such that
-\begin{equation}
- \cosh2y\simeq \frac{f(M_1)}{\mtot}
-\end{equation}
-to satisfy the neutrino option condition as long as $\delta M$ is tiny.
 
 
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.5\textwidth]{bfp_analysis_fplot.pdf}
-\end{figure}
-
+Therefore, the neutrino-option condition gives a constraint
+\begin{equation}
+ f(M_1) > \mtot.
+\end{equation}
+This is translated to an upper bound on $M_1$, which is
+\begin{equation}
+ M_1<9.4\ (7.9)\times10^6\GeV\quad\text{for NH (IH)}
+\end{equation}
+Meanwhile, for $M_1\ll10^7\GeV$, we can fulfill the neutrino-option condition with
+\begin{equation}
+ \cosh2x\simeq \frac{f(M_1)}{\mtot}.
+\end{equation}
+For example, for $M_1=4$ (1) $\times10^6\GeV$, the condition is satisfied with $\cosh2x \sim 10$ (1000).
 
 
 \section{Leptogenesis}
@@ -439,4 +456,23 @@ with numerical evaluation, this yields
  |\delta \eta_l|\approx 10^{-8}\left(\frac{M_1}{4.3~(8.5)~\EE5\GeV}\right)^6 R_{IJ}
 \end{equation}
 Therefore, leptogenesis provides a lower bound at, at least, $430\TeV$ ($850\TeV$) for NH (IH).
+
+\appendix
+\section{Yukawa products}
+We use the Casas--Ibarra parameterization with $z=w+\ii y$ and $\zeta=\pm1$:
+With 
+\begin{align}
+ y_{Ii}y^*_{Jj} &= \frac{2}{v^2}\sum_{ab}
+\sqrt{M_I}R_{Ia}\sqrt{m_a}(U^\dagger)_{ai}
+U_{jb}\sqrt{m_b}(R^\dagger)_{bJ}\sqrt{M_J},
+\\
+ (yy^\dagger)_{IJ} &= \frac{2}{v^2}\sum_{a}
+\sqrt{M_I}R_{Ia}{m_a}(R^\dagger)_{aJ}\sqrt{M_J},\\
+ (y^\dagger y)_{ij} &= \frac{2}{v^2}\sum_{abI}
+U_{ia}\sqrt{m_a}(R^\dagger)_{aI}
+M_I R_{Ib}\sqrt{m_b}(U^\dagger)_{bj}.
+\end{align}
+Regardless of the hierarchy, these Yukawa combinations are rewritten by
+
+
 \end{document}
