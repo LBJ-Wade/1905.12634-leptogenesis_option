@@ -1,4 +1,5 @@
 (* ::Package:: *)
+(* Time-Stamp: <2019-05-15 18:17:47> *)
 
 thisFile := If[$FrontEnd === Null, $Input, NotebookFileName[]];
 SetAttributes[outputPDF, HoldFirst];
@@ -12,6 +13,8 @@ colors = RGBColor /@ {"#001b95", "#6e501f", "#d2454f", "#639bf3", "#00e47b"};
 color[i_Integer] /; 1<=i<=9 := colors[[i]];
 color[i_Integer] /; i>9 := (Print["Color undefined"]; Abort[];)
 color[0] := RGBColor["#000000"];
+
+ColorToTeX[RGBColor[c__], name_String] := StringJoin["\\definecolor{", name, "}{rgb}", TextString[{c}]]
 
 
 (* Mathematica Default markers *)
@@ -32,7 +35,7 @@ SetOptions[#,
 ] &/@ {Plot, LogPlot, LogLogPlot, LogLinearPlot, ListPlot, ListLogPlot, ListLogLogPlot, ListLogLinearPlot};
 
 <<MaTeX`
-SetOptions[MaTeX, FontSize -> 16, "Preamble"->{"\\usepackage{newtxtext,newtxmath}"}, ContentPadding->False];
+SetOptions[MaTeX, FontSize -> 16, "Preamble"->{"\\usepackage{newtxtext,newtxmath,color}"}, ContentPadding->False];
 
 TeXParamAligned[params_List] := "\\begin{aligned}" <> StringRiffle[#[[1]] <> "&=" <> If[Head[#[[2]]]===String,#[[2]],MyTextString[#[[2]]]] &/@ params, "\\\\"] <> "\\end{aligned}"
 TeXParamRow[params_List] := StringRiffle[#[[1]] <> "=" <> If[Head[#[[2]]]===String,#[[2]],MyTextString[#[[2]]]] &/@ params, ",\\ \\ "]
