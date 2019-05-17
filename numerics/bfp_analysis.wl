@@ -187,7 +187,7 @@ G1[fit_] := Assuming[\[Sigma]>0,
       U=ToPMNS[fit].DiagonalMatrix[{1,Exp[I \[Sigma]],1}],
       m=ToMasses[fit]
     },
-    Table[Sum[(Sqrt[m[[i]]^2]/Total[m])Abs[U[[a,i]]],{i,3}],{a,3}]]//FullSimplify]
+    Table[Sum[(Sqrt[m[[i]]^2]/Total[m])Abs[U[[a,i]]]^2,{i,3}],{a,3}]]//FullSimplify]
 
 
 hierarchy="NH";
