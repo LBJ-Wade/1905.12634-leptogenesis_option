@@ -78,7 +78,7 @@ running = LogLinearPlot[
     {color[1], Dashed},
     {color[3], Dashed}
   },
-  FrameLabel->{MaTeX["Q\\,\\textrm{/\\,GeV}"], None},
+  FrameLabel->{MaTeX["\\bar Q\\,\\textrm{/\\,GeV}"], None},
   PlotLegends->Placed[
     LineLegend[
       {Dotted, Black, Dashed},
@@ -87,8 +87,8 @@ running = LogLinearPlot[
       LabelStyle->{ FontFamily->"Times New Roman", FontSize->15}
     ], {0.81,0.45}],
   Epilog->{
-    Inset[MaTeX["V=\\lambda |\\phi|^4 - \mu^2|\\phi|^2"],{33,0.13}],
-    Inset[MaTeX[ColorToTeX[color[3], "one"]<>"\\color{one}{\mu(Q)\\,/\\mathrm{TeV}}"], {16, 0.112}],
-    Inset[MaTeX[ColorToTeX[color[1], "one"]<>"\\color{one}{\lambda(Q)}"], {18, 0.03}]
+    Inset[MaTeX["V=\\lambda |\\phi|^4 - \\mu^2|\\phi|^2"],{33,0.13}],
+    Inset[MaTeX[ColorToTeX[color[3], "one"]<>"\\color{one}{\\mu(\\bar Q)\\,/\\mathrm{TeV}}"], {16, 0.112}],
+    Inset[MaTeX[ColorToTeX[color[1], "one"]<>"\\color{one}{\\lambda(\\bar Q)}"], {18, 0.03}]
   }] //. {Charting`ScaledTicks[arg_]:>MyChartingScaledTicks[arg]}
 outputPDF[running];
