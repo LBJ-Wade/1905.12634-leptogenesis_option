@@ -563,7 +563,124 @@ The asymmetry is maximized with $w=\pi/4$;
 =\sum_\alpha
 \frac{16\pi v^2 m_* \delta M}{z_* \kappa_\alpha \mtot^2 M_1}
 \frac{5\cosh^2 2x - \rho_m^2}{\left(\cosh^2 2x - \rho_m^2\right)^2\cosh2x}
-G_\alpha,
+G_\alpha.
 \end{equation}
+
+\newpage
+\section{Appendix for kappa}
+We evaluate the expressions in our draft,
+\begin{equation}
+\kappa_\alpha = 2\sum_{I,J} \frac{\textrm{Re}\big[y_{I\alpha}^{\phantom{*}}y_{J\alpha}^*\big]\textrm{Re}\left[\left(yy^\dagger\right)_{IJ}\right] - \textrm{Im}\big[y_{I\alpha}^{\phantom{*}}y_{J\alpha}^*\big]\textrm{Im}\big[y_{I\alpha}^{\phantom{*}}y_{J\alpha}^*\big]}{\left(y^\dagger y\right)_{\alpha\alpha}\left[\left(yy^\dagger\right)_{II} + \left(yy^\dagger\right)_{JJ}\right]}\left(1-2\ii\,\frac{M_I-M_J}{\Gamma_I+\Gamma_J}\right)^{-1}.
+\end{equation}
+We get
+\begin{align}
+\begin{split}
+ \kappa_\alpha
+ &= 2\sum_{I} \frac{
+  |y_{I\alpha}|^2
+  \Re(yy^\dagger)_{II}
+  }{\left(y^\dagger y\right)_{\alpha\alpha}\cdot 2(yy^\dagger)_{II}}
+ \\&\qquad+
+ 2 \frac{\Re[y_{1\alpha} y_{2\alpha}^*]\Re[(yy^\dagger)_{12}] - [\Im(y_{1\alpha}y_{2\alpha}^*)]^2
+}{(y^\dagger y)_{\alpha\alpha}\left[\yydag_{11} + \yydag_{22}\right]}
+\left(1-2\ii\frac{M_1-M_2}{\Gamma_1+\Gamma_2}\right)^{-1}
+ \\&\qquad+
+ 2 \frac{\Re[y_{2\alpha} y_{1\alpha}^*]\Re[(yy^\dagger)_{21}] - [\Im(y_{2\alpha}y_{1\alpha}^*)]^2
+}{(y^\dagger y)_{\alpha\alpha}\left[\yydag_{11} + \yydag_{22}\right]}
+\left(1-2\ii\frac{M_2-M_1}{\Gamma_1+\Gamma_2}\right)^{-1}
+\end{split}
+\\
+\begin{split}
+ &= 1 + 
+ 2 \frac{\Re[y_{1\alpha} y_{2\alpha}^*]\Re[(yy^\dagger)_{12}] - [\Im(y_{1\alpha}y_{2\alpha}^*)]^2
+}{(y^\dagger y)_{\alpha\alpha}\left[\yydag_{11} + \yydag_{22}\right]}
+\\&\qquad\qquad\times
+\left[
+\left(1-2\ii\frac{M_1-M_2}{\Gamma_1+\Gamma_2}\right)^{-1}
++
+\left(1-2\ii\frac{M_2-M_1}{\Gamma_1+\Gamma_2}\right)^{-1}
+\right]\end{split}
+\\&=
+ 1 + 
+ 2 \frac{\Re[y_{1\alpha} y_{2\alpha}^*]\Re[(yy^\dagger)_{12}] - [\Im(y_{1\alpha}y_{2\alpha}^*)]^2
+}{(y^\dagger y)_{\alpha\alpha}\left[\yydag_{11} + \yydag_{22}\right]}
+\frac{2(\Gamma_1+\Gamma_2)^2}{(\Gamma_1+\Gamma_2)^2+4(\Delta M)^2}.
+\end{align}
+Now we should explicitly evaluate the Yukawa products.
+
+Let us define
+\begin{align}
+ g_{\alpha i} &:= \frac{m_i}{\mtot}\Abs{U_{\alpha i}}^2,
+&
+ h_{\alpha} &:= 
+\begin{cases}
+\left({2\sqrt{m_2m_3}}/{\mtot}\right)\left(U_{\alpha2}U^*_{\alpha3}\right) & \text{(NH)}\\
+\left({2\sqrt{m_1m_2}}/{\mtot}\right)\left(U_{\alpha1}U^*_{\alpha2}\right) & \text{(IH)}
+\end{cases}
+\end{align}
+which leads
+\begin{align}
+ G^{(1)}_\alpha &= \sum_i g_{\alpha i},
+&
+ G_\alpha^{(2)} &= \Im h_\alpha.
+\end{align}
+Then we evaluate the Yukawa product as
+\begin{align}
+ y_{I\alpha} y^*_{J\alpha}
+&=
+\frac{1}{v^2/2}
+\sqrt{M_I M_J}(R\sqrt{m\w{diag}}U^\dagger)_{I\alpha}(U\sqrt{m\w{diag}}R^\dagger)_{\alpha J}
+\\&=
+\frac{1}{v^2/2}\sum_{i,j}
+U_{\alpha i}U^*_{\alpha j}
+(\sqrt{m\w{diag}}R^\dagger)_{i J}
+\sqrt{M_I M_J}
+(R\sqrt{m\w{diag}})_{Ij}
+\\&=
+\frac{\mtot\sqrt{M_I M_J}}{v^2/2}
+\left[
+   \sum_{i}R_{Ii}g_{\alpha i}(R^\dagger)_{iJ}
+   +\frac12\left(
+      h_\alpha   R^*_{J2} R_{I3}+
+      h_\alpha^* R^*_{J3} R_{I2}
+   \right)
+\right].
+\end{align}
+For inverted hierarchy, we just replace the indices as usual.
+Then we get
+\begin{align}
+ \Re\left(y_{1\alpha} y^*_{2\alpha}\right)
+&=
+\frac{\mtot\sqrt{M_1 M_2}}{v^2}
+\Bigl[
+(g_{\alpha 3}-g_{\alpha2})\sin2w
++(\Re h_\alpha)\zeta\cos2w\Bigr],\\
+ \Im\left(y_{1\alpha} y^*_{2\alpha}\right)
+&=
+\frac{\mtot\sqrt{M_1 M_2}}{v^2}
+\Bigl[
+(g_{\alpha 3}+g_{\alpha2})\sinh2x
+ - (\Im h_\alpha)\zeta\cosh2x
+\Bigr],
+\end{align}
+which leads
+\begin{align}
+& \frac{\Re[y_{1\alpha} y_{2\alpha}^*]\Re[(yy^\dagger)_{12}] - [\Im(y_{1\alpha}y_{2\alpha}^*)]^2
+}{(y^\dagger y)_{\alpha\alpha}\left[\yydag_{11} + \yydag_{22}\right]}
+\\&=
+ \frac{\left[
+(g_{\alpha 3}-g_{\alpha2})\sin2w
++(\Re h_\alpha)\zeta\cos2w\right]
+\Re W_{12} - \left(G_\alpha^{(1)}\sinh2x-\zeta G^{(2)}_\alpha\cosh2x\right)^2
+}{\frac{v^2}{\mtot M_1 M_2}(y^\dagger y)_{\alpha\alpha} (M_1W_1+M_2W_2)},
+\end{align}
+and, for $M_1\simeq M_2$,
+\begin{align}
+ (y^\dagger y)_{\alpha\alpha}
+&\simeq
+\frac{2M_1\mtot}{v^2}\left(
+  G^{(1)}_\alpha\cosh2x - \zeta G^{(2)}_\alpha\sinh2x
+\right).
+\end{align}
 
 \end{document}
