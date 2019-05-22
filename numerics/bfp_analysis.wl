@@ -205,21 +205,51 @@ Plot[{%%, %}//.\[Sigma]->sop \[Pi]//Evaluate,{sop, -1, 1},
 outputPDF["f_IH", %]
 
 
-hierarchy="NH";
-sum = With[{g1 = G1[BestFit[hierarchy]], g2 = G2[BestFit[hierarchy]]},
-      Sum[(g1[[a]]Tanh[2x]-\[Zeta] g2[[a]])/(g1[[a]]-\[Zeta] g2[[a]]Tanh[2x])/Cosh[2x], {a,3}]]
-Plot[(Maximize[Abs[sum/.\[Zeta]->1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
-Plot[(Maximize[Abs[sum/.\[Zeta]->-1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+(* ::Section:: *)
+(*Draft verification*)
 
 
-hierarchy="IH";
-sum = With[{g1 = G1[BestFit[hierarchy]], g2 = G2[BestFit[hierarchy]]},
-      Sum[(g1[[a]]Tanh[2x]-\[Zeta] g2[[a]])/(g1[[a]]-\[Zeta] g2[[a]]Tanh[2x])/Cosh[2x], {a,3}]]
-Plot[(Maximize[Abs[sum/.\[Zeta]->1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
-Plot[(Maximize[Abs[sum/.\[Zeta]->-1],x])[[1]],{\[Sigma],-\[Pi],\[Pi]}]
+mDmDdag = yydag vev^2/2;
+tildem = RHS //. {M1->Subscript[M, 1], TrYY->yydag[1,1]+yydag[2,2]};
 
 
-8\[Pi]^2 246^2 100^2//N
+(* ::Input:: *)
+(*RHS == mDmDdag/M1//FullSimplify*)
 
 
-2.81*^-18 M1 \[Rho]M/GeV / ((4.8*^10GeV^4)/(M1^3 mtot))
+tildem0 = fneutopt[Subscript[M, 1]]
+% //. {vev->246GeV, Subscript[M, 1]->10^7GeV, \[Mu]sq[_]:>(100GeV)^2, GeV->10^9 eV, eV->1000meV}//N
+
+tildem/mtot  //. MRules1  // Collect[#, \[Delta]M, Simplify]&
+
+
+Do[hierarchy = x; Print[\[Rho]m //. mRevert //. mValues], {x, {"NH", "IH"}}]
+
+
+tildem0 == tildem //. {
+  Subscript[M, 1]->M1, Subscript[M, 2]->M1(1+\[Delta]M), \[Mu]sq[_]:>\[Mu]sq,
+  M1->(8\[Pi]^2 vev^2 \[Mu]sq/mtot)^(1/3) (Cosh[2x]+(\[Delta]M/2)(Cosh[2x]+\[Rho]m Cos[2w]))^(-1/3)
+}//Simplify
+
+
+Do[hierarchy = x; Print[mtot(10^12meV) //. mRevert //. mValues], {x, {"NH", "IH"}}]
+
+
+Do[hierarchy = x; Print[(8\[Pi]^2 246^2 100^2/mtot)^(1/3) //. mRevert //. mValues], {x, {"NH", "IH"}}]
+
+
+Do[hierarchy = x; 
+  FindRoot[fneutopt[M1] == mtot //. Join[mRevert, mValues, {\[Mu]sq[q_]:>msq[q]/2, vev->246}]
+     , {M1,10^7, 10^6, 10^8}] // Print,
+  {x, {"NH", "IH"}}]
+
+
+hierarchy = "NH";
+\[Rho]m mstar mtot M1^4 / (16\[Pi]^3 \[Delta]M v^4 \[Mu]sq[M1 Exp[-3/4]]) //. Join[mRevert, mValues, {mstar->1.06*^-12, v->246}]
+%/3*^-8 //. {M1->9.4*^6, \[Mu]sq[q_]:>msq[q]/2}
+
+
+8\[Pi] v^2 mstar \[Delta]M / (z \[Kappa] mtot^2 M1) * 4\[Rho]m G/(W[1,1]W[2,2]) * (W[1,1]W[2,2] / (2Cosh2x(Cosh2x^2-\[Rho]m^2)) + 2Cosh2x/(W[1,1]W[2,2]));
+% //. {w->\[Pi]/4,Cosh[2x]->Cosh2x} // Together
+(G/(z \[Kappa]))Y \[Rho]m \[Delta]M 16\[Pi] v^2 mstar  / (Cosh2x^3 mtot^2 M1) //. {Y->4+Cosh2x^2/(Cosh2x^2-\[Rho]m^2)}//Together
+(G/(z \[Kappa]))Y \[Rho]m \[Delta]M 16\[Pi] v^2 mstar  / (Cosh2x^3 mtot^2 M1) //. {Cosh2x->fneutopt[M1]/mtot, \[Mu]sq[_]:>\[Mu]0^2 }
