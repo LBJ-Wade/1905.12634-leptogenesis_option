@@ -92,3 +92,50 @@ running = LogLinearPlot[
     Inset[MaTeX[ColorToTeX[color[1], "one"]<>"\\color{one}{\\lambda(\\bar Q)}"], {18, 0.03}]
   }] //. {Charting`ScaledTicks[arg_]:>MyChartingScaledTicks[arg]}
 outputPDF[running];
+
+
+(* ::Subsection:: *)
+(*For manuscript*)
+
+
+KeyValueMap["$"<>#1<>"$ & " <> TextString[#2] <> "\\\\\n"&][EWInput] // StringJoin
+
+
+getCouplingsAtMt[EWInput, 1] // {
+  "g_1" -> (#[g1sq] // Sqrt),
+  "g_2" -> (#[g2sq] // Sqrt),
+  "g_3" -> (#[g3sq] // Sqrt),
+  "\\lambda" -> #[lam],
+  "\\mu" -> (#[msq] / 2 // Sqrt),
+  "y_t" -> (#[ytsq] // Sqrt),
+  "y_b" -> (#[ybsq] // Sqrt),
+  "y_\\tau" -> (#[yasq] // Sqrt)
+} &
+
+
+NumToStr[a_] := NumberForm[a, 4] // TextString
+{
+  "Q" -> q,
+  "g_1" -> (g1sq[Log[q^2]] // Sqrt),
+  "g_2" -> (g2sq[Log[q^2]] // Sqrt),
+  "g_3" -> (g3sq[Log[q^2]] // Sqrt),
+  "\\lambda" -> lam[Log[q^2]],
+  "\\mu" -> (msq[Log[q^2]] / 2 // Sqrt),
+  "y_t" -> (ytsq[Log[q^2]] // Sqrt),
+  "y_b" -> (ybsq[Log[q^2]] // Sqrt),
+  "y_\\tau" -> (yasq[Log[q^2]] // Sqrt)
+} //. rge2 //. q->{173.2, 10^7} //. Rule[a_, b_] :> StringJoin["$", a, "$ & ", NumToStr[b[[1]]], " & ", NumToStr[b[[2]]] , "\\\\\n"] // StringJoin 
+
+
+NumToStr[a_] := NumberForm[a, 4] // TextString
+{
+  "Q" -> q,
+  "g_1" -> (g1sq[Log[q^2]] // Sqrt),
+  "g_2" -> (g2sq[Log[q^2]] // Sqrt),
+  "g_3" -> (g3sq[Log[q^2]] // Sqrt),
+  "\\lambda" -> lam[Log[q^2]],
+  "\\mu" -> (msq[Log[q^2]] / 2 // Sqrt),
+  "y_t" -> (ytsq[Log[q^2]] // Sqrt),
+  "y_b" -> (ybsq[Log[q^2]] // Sqrt),
+  "y_\\tau" -> (yasq[Log[q^2]] // Sqrt)
+} //. rge3 //. q->{173.2, 10^7} //. Rule[a_, b_] :> StringJoin["$", a, "$ & ", NumToStr[b[[1]]], " & ", NumToStr[b[[2]]] , "\\\\\n"] // StringJoin 
