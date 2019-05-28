@@ -102,4 +102,26 @@ Collect[-8\[Pi]^2 Coefficient[\[CapitalDelta]Vwoe, \[Phi]2sq, 1],{TrYDCT, TRYDYD
 Collect[-16\[Pi]^2  Coefficient[\[CapitalDelta]Vwoe, \[Phi]2sq, 2],{TrYDCT, TRYDYD, H1, H2}, FullSimplify]
 
 
+(* ::Text:: *)
+(*Comparison with Expressions in our paper*)
+
+
+\[CapitalDelta]Vours = Simplify[\[CapitalDelta]Vwoe //. {
+   L1 -> Log[M1sq/QMSbarsq],
+   L2 -> Log[M2sq/QMSbarsq],
+   QMSbarsq->Qsq Exp[-3/2]
+}] //. { Log[M1sq/Qsq]->lnMsqQsq[1], Log[M2sq/Qsq]->lnMsqQsq[2] };
+muexpression = Collect[-8\[Pi]^2 Coefficient[\[CapitalDelta]Vours, \[Phi]2sq, 1],{TrYDCT, TRYDYD}, FullSimplify]
+lamexpression = Collect[+8\[Pi]^2 Coefficient[\[CapitalDelta]Vours, \[Phi]2sq, 2],{TrYDCT, TRYDYD, H1, H2}, FullSimplify]
+(lamexpression == Sum[H[i]^2 L1[i,j]-1/2 TrYDCT L2[i,j]+1/2 TrYDYD L3[i,j] /. j->3-i,{i,1,2}]) //.{
+   L1[i_,j_]:>(M[j]-M[i])^-1 M[j] Log[M[j]/M[i]] - 1,
+   L2[i_,j_]:>(M[j]^2-M[i]^2)^-1 M[i]M[j] Log[M[j]/M[i]],
+   L3[i_,j_]:>(M[j]^2-M[i]^2)^-1 M[i]^2 lnMsqQsq[i] - 1/4,
+   M[1]->M1, M[2]->M2, H[1]->H1, H[2]->H2,
+   Log[M2/M1]->(lnMsqQsq[2]-lnMsqQsq[1])/2,
+   Log[M1/M2]->(lnMsqQsq[1]-lnMsqQsq[2])/2
+   } // FullSimplify//Expand
+lamexpression /. {lnMsqQsq[2]->Log[M2^2/Qsq], lnMsqQsq[1]->Log[M1^2/Qsq]} // Limit[#, M2->M1]& // Expand
+
+
 
