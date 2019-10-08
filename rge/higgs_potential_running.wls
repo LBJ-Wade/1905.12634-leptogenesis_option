@@ -94,6 +94,14 @@ running = LogLinearPlot[
 outputPDF[running];
 
 
+xList = {173.2, 10^(Range[23, 180]/10)} // Flatten // N
+Do[
+  {flam, fmu} = {lam[Log[q^2]], Sqrt[msq[Log[q^2]]/2]/1000} /. order[[1]][[1]];
+  toexport = ({q, flam, fmu} /. q->#) &/@ xList;
+  Write[order[[2]], toexport]
+  , {order, {{rge1, "rge1.txt"}, {rge2, "rge2.txt"}, {rge3, "rge3.txt"}}}]
+
+
 (* ::Subsection:: *)
 (*For manuscript*)
 
